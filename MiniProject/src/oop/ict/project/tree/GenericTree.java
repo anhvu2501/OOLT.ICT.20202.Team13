@@ -3,6 +3,8 @@ package oop.ict.project.tree;
 import java.util.ArrayList;
 import java.util.Stack;
 
+import oop.ict.project.shape.Circle;
+
 public class GenericTree {
 	public Node root;
 
@@ -13,24 +15,23 @@ public class GenericTree {
 	public GenericTree(Node root) {
 		this.root = root;
 	}
-	
-	public GenericTree(int rootValue) {
-		this.root = new Node(rootValue);
+
+	public GenericTree(Circle rootValue) {
+		this.root.rootCircle = rootValue;
 	}
 
 	public GenericTree createGenericTree() {
 		return new GenericTree();
 	}
 
-	public boolean insertNode(int parentValue, Node newNode) {
+	public Node insertNode(Integer parentValue, Node newNode) throws TreeException{
 		boolean isParentInTree = isInTree(root, parentValue);
 		if (isParentInTree) {
 			Node foundParentNode = searchNode(root, parentValue);
 			foundParentNode.children.add(newNode);
-			return true;
+			return newNode;
 		} else {
-			System.out.println("Cannot find node with value " + parentValue);
-			return false;
+			throw new TreeException("Cannot find node with value " + parentValue);
 		}
 	}
 
@@ -46,47 +47,44 @@ public class GenericTree {
 //		}
 //	}
 //	
-	
-	public boolean updateValueOfNode(int currentValue, int newValue) {
-		//Node foundUpdateNode = new Node();
+
+	public Node updateValueOfNode(Integer currentValue, Integer newValue) throws TreeException{
+		// Node foundUpdateNode = new Node();
 		boolean isUpdateInTree = isInTree(root, currentValue);
 		if (isUpdateInTree) {
 			Node foundUpdateNode = searchNode(root, currentValue);
-			foundUpdateNode.setValue(newValue);
-			System.out.println("Node with value " + currentValue + 
-								" is updated to " + newValue);
-			return true;
+			foundUpdateNode.rootCircle.setSearchKey(newValue);
+			System.out.println(
+					"Node with value " + currentValue+ " is updated to " + newValue);
+			return foundUpdateNode;
 		} else {
-			System.out.println("Cannot find node with value " + currentValue);
-			return false;
+			throw new TreeException("Cannot find node with value " + currentValue);
 		}
 	}
-	
-	private class Pair{
+
+	private class Pair {
 		private Node node;
 		private int state;
-		
-		private Pair(Node node, int state){
+
+		private Pair(Node node, Integer state) {
 			this.node = node;
 			this.state = state;
 		}
 	}
-	
+
 	public ArrayList<Node> traversePreOrder() {
 		Stack<Pair> stack = new Stack<>();
 		stack.push(new Pair(root, -1));
-		
+
 		ArrayList<Node> preOrderList = new ArrayList<>();
-		while(stack.size() > 0) {
+		while (stack.size() > 0) {
 			Pair top = stack.peek();
-			if(top.state == -1) {
+			if (top.state == -1) {
 				preOrderList.add(top.node);
-				top.state ++;
-			}
-			else if(top.state == top.node.children.size()) {
+				top.state++;
+			} else if (top.state == top.node.children.size()) {
 				stack.pop();
-			}
-			else {
+			} else {
 				Pair cp = new Pair(top.node.children.get(top.state), -1);
 				stack.push(cp);
 				top.state++;
@@ -94,22 +92,20 @@ public class GenericTree {
 		}
 		return preOrderList;
 	}
-	
+
 	public ArrayList<Node> traversePostOrder() {
 		Stack<Pair> stack = new Stack<>();
 		stack.push(new Pair(root, -1));
-		
+
 		ArrayList<Node> postOrderList = new ArrayList<>();
-		while(stack.size() > 0) {
+		while (stack.size() > 0) {
 			Pair top = stack.peek();
-			if(top.state == -1) {
-				top.state ++;
-			}
-			else if(top.state == top.node.children.size()) {
+			if (top.state == -1) {
+				top.state++;
+			} else if (top.state == top.node.children.size()) {
 				postOrderList.add(top.node);
 				stack.pop();
-			}
-			else {
+			} else {
 				Pair cp = new Pair(top.node.children.get(top.state), -1);
 				stack.push(cp);
 				top.state++;
@@ -117,21 +113,23 @@ public class GenericTree {
 		}
 		return postOrderList;
 	}
-	
-	public void traverseTree(Node rootNode) {
-		System.out.println("Node Pre " + rootNode.value);
-		for(Node child: rootNode.children) {
-			System.out.println("Edge Pre " + rootNode.value + "--" + child.value);
-			traverseTree(child);
-			System.out.println("Edge Post " + rootNode.value + "--" + child.value);
-			
-		}
-		System.out.println("Node Post " + rootNode.value);
-	}
-	
 
-	public boolean isInTree(Node node, int key) {
-		if (node.value == key) {
+	//for testing only
+	public void traverseTree(Node rootNode) {
+		System.out.println("Node Pre " + rootNode.rootCircle.getSearchKey());
+		for (Node child : rootNode.children) {
+			System.out
+					.println("Edge Pre " + rootNode.rootCircle.getSearchKey() + "--" + child.rootCircle.getSearchKey());
+			traverseTree(child);
+			System.out.println(
+					"Edge Post " + rootNode.rootCircle.getSearchKey() + "--" + child.rootCircle.getSearchKey());
+
+		}
+		System.out.println("Node Post " + rootNode.rootCircle.getSearchKey());
+	}
+
+	public boolean isInTree(Node node, Integer key) {
+		if (node.rootCircle.getSearchKey() == key) {
 			return true;
 		}
 		for (Node child : node.children) {
@@ -142,9 +140,9 @@ public class GenericTree {
 		}
 		return false;
 	}
-	
-	public Node searchNode(Node node, int key) {
-		if (node.value == key) {
+
+	public Node searchNode(Node node, Integer key) {
+		if (node.rootCircle.getSearchKey() == key) {
 			return node;
 		}
 
@@ -157,7 +155,5 @@ public class GenericTree {
 
 		return null;
 	}
-
-	
 
 }

@@ -1,40 +1,36 @@
 package oop.ict.project.tree;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
+import oop.ict.project.shape.Circle;
 //import javafx.scene.shape.Circle;
 
 public class Node {
-	public int value;
+	public Circle rootCircle;
 	public ArrayList<Node> children = new ArrayList<>();
 	public boolean highlightFlag;
-	
+
 	/**
 	 * A binary tree using circle objects.
+	 * 
 	 * @param rootCircle a root tree circle
-	 * @param children : array of children
+	 * @param children   : array of children
 	 */
-	
-	public Node() {
-		this.value = 0;
+
+	public Node(Integer key) {
+		this.rootCircle = new Circle(key);
 	}
-	
-	public Node(int value) {
-		this.value = value;
+
+	public Node(Circle rootCircle) {
+		this.rootCircle = rootCircle;
 	}
-	
-	public Node(int value, ArrayList<Node> children) {
-		this.value = value;
-		this.children = children;
-	}
-	
-	public void setValue(int value) {
-		this.value = value;
+
+	public void setValue(Integer value) {
+		this.rootCircle.setSearchKey(value);
 	}
 
 	public void addChild(Node child) {
 		this.children.add(child);
 	}
-	
+
 }
