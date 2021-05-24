@@ -1,7 +1,9 @@
-package oop.ict.project.tree;
+package oop.ict.project.tree.generic;
 
 import java.util.ArrayList;
-import oop.ict.project.shape.Circle;
+
+import oop.ict.project.tree.generic.GenericTree;
+import oop.ict.project.tree.generic.Node;
 
 /*								Generic Tree
  * 									4

@@ -1,4 +1,4 @@
-package oop.ict.project.tree;
+package oop.ict.project.tree.exception;
 
 public class TreeException extends Exception {
 
