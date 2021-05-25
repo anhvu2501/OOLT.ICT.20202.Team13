@@ -37,8 +37,23 @@ public class GenericTree {
             throw new TreeException("Cannot find node with value " + parentValue);
         }
     }
+    
+    public Node getParentNode(Node node, Integer key) {
+        if (node.children.contains(searchNode(root, key))) {
+            return node;
+        }
 
-//	public boolean deleteNode(int value) {  
+        for (Node child : node.children) {
+            Node foundNode = getParentNode(child, key);
+            if (foundNode != null) {
+                return foundNode;
+            }
+        }
+
+        return null;
+    }
+
+	public boolean deleteNode(Integer value) throws TreeException{  
 //		Node foundDeleteNode = root;
 //		boolean foundNode = searchNode(root, value, foundDeleteNode);
 //		if (foundNode) {
@@ -48,8 +63,27 @@ public class GenericTree {
 //			System.out.println("Cannot find node with value " + value);
 //			return false;
 //		}
-//	}
-//	
+		boolean isInTree = isInTree(root, value);
+        if (isInTree) {
+            Node foundNode = searchNode(root, value);
+            if(foundNode.children == null) {
+            	foundNode = null;
+            	return true;
+            }
+            else {
+            	Node parentNode = getParentNode(root, value);
+            	for(Node child: foundNode.children) {
+            		parentNode.children.add(child);
+            	}
+            	parentNode.children.remove(foundNode);
+            	foundNode = null;
+            	return true;
+            }
+        } else {
+            throw new TreeException("Cannot find node with value " + value);
+        }
+	}
+	
 
     public Node updateValueOfNode(Integer currentValue, Integer newValue) throws TreeException {
         // Node foundUpdateNode = new Node();

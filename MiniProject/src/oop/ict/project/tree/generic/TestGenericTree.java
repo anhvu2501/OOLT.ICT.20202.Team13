@@ -75,5 +75,45 @@ public class TestGenericTree {
 		for (Node i : postOrderList) {
 			System.out.print(i.rootCircle.getSearchKey() + "  ");
 		}
+		
+		try {
+			boolean deleteNode = tempTree.deleteNode(5);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+		}
+		
+		System.out.println("\nAfter deleting node 5");
+		System.out.println("\nPreorder Traversal");
+		preOrderList = tempTree.traversePreOrder();
+		for (Node i : preOrderList) {
+			System.out.print(i.rootCircle.getSearchKey() + "  ");
+		}
+
+		System.out.println("\nPostorder Traversal");
+		postOrderList = tempTree.traversePostOrder();
+		for (Node i : postOrderList) {
+			System.out.print(i.rootCircle.getSearchKey() + "  ");
+		}
+		
+		try {
+			boolean deleteNode = tempTree.deleteNode(2);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getStackTrace());
+		}
+		
+		System.out.println("\nAfter deleting node 2");
+		System.out.println("\nPreorder Traversal");
+		preOrderList = tempTree.traversePreOrder();
+		for (Node i : preOrderList) {
+			System.out.print(i.rootCircle.getSearchKey() + "  ");
+		}
+
+		System.out.println("\nPostorder Traversal");
+		postOrderList = tempTree.traversePostOrder();
+		for (Node i : postOrderList) {
+			System.out.print(i.rootCircle.getSearchKey() + "  ");
+		}
 	}
 }
