@@ -13,15 +13,15 @@ public class BalancedTree extends GenericTree {
 	public BalancedTree() {
 		super();
 		this.limitDistance=1;  //Default value
-		this.minLeafDepth= 1000000; // this is initialize for
-		this.MaxLeafDepth= -1;		// a tree with only root
+		this.minLeafDepth=1; // this is initialize for
+		this.MaxLeafDepth=1;		// a tree with only root
 	}
 	
 	public BalancedTree(Node root) {
 		super(root);
 		this.limitDistance=1;  //Default value
-		this.minLeafDepth= 1000000; // this is initialize for 
-		this.MaxLeafDepth= -1;		// a tree with only root
+		this.minLeafDepth=1; // this is initialize for 
+		this.MaxLeafDepth=1;		// a tree with only root
 	}
 	
 	public BalancedTree(Circle rootValue) {
@@ -66,6 +66,17 @@ public class BalancedTree extends GenericTree {
     }
 	
 	public void updateMaxMin(Node root) {
+		if(root == this.root) {
+			if(root.getNbChildren()==0) {
+				this.minLeafDepth=1;
+				this.MaxLeafDepth=1;
+				return;
+			}
+			else {
+				this.minLeafDepth=999999;
+				this.MaxLeafDepth=-1;
+			}
+		}
 		if(root.getNbChildren()==0 && root!=this.root) {
 			if(root.getDepth()<this.minLeafDepth)
 				this.minLeafDepth=root.getDepth();
