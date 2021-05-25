@@ -15,13 +15,15 @@ public class GenericTree {
 
     public GenericTree(Node root) {
         this.root = root;
+        this.root.setDepth(1);
     }
 
     public GenericTree(Circle rootValue) {
         this.root.rootCircle = rootValue;
+        this.root.setDepth(1);
     }
 
-    public GenericTree createGenericTree() {
+    public GenericTree createTree() {
         return new GenericTree();
     }
 
