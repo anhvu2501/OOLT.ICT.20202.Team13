@@ -17,8 +17,8 @@ public class TestBalancedTree {
 				tempNode = tempTree.insertNode(rootValue, new Node(1));
 				tempNode = tempTree.insertNode(rootValue, new Node(2));
 				tempNode = tempTree.insertNode(rootValue, new Node(10));
-				tempNode = tempTree.insertNode(8, new Node(16));
 				tempNode = tempTree.insertNode(8, new Node(9));
+				tempNode = tempTree.insertNode(8, new Node(16));
 				tempNode = tempTree.insertNode(1, new Node(14));
 				tempNode = tempTree.insertNode(1, new Node(6));
 				tempNode = tempTree.insertNode(2, new Node(7));
@@ -32,6 +32,12 @@ public class TestBalancedTree {
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
 				System.out.println(e.getStackTrace());
+			}
+			
+			System.out.println("Preorder Traversal");
+			ArrayList<Node> preOrderList = tempTree.traversePreOrder();
+			for (Node i : preOrderList) {
+				System.out.print(i.rootCircle.getSearchKey() + "  ");
 			}
 
 		}
