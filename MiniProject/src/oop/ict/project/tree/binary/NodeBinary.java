@@ -6,14 +6,15 @@ import oop.ict.project.tree.generic.Node;
 //Node for Binary Tree
 public class NodeBinary extends Node {
 
-	public NodeBinary(Circle rootCircle) {
-		super(rootCircle);
-	}
-	public NodeBinary(Integer key) {
-		super(key);
-	}
-		
-		
+    public NodeBinary(Circle rootCircle) {
+        super(rootCircle);
+    }
+
+    public NodeBinary(Integer key) {
+        super(key);
+    }
+
+
 //    public Circle rootCircle;
 //    public NodeBinary left;
 //    public NodeBinary right;

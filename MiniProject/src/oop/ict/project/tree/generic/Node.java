@@ -11,6 +11,10 @@ public class Node {
     public ArrayList<Node> children = new ArrayList<>();
     public boolean highlightFlag;
 
+    public Node() {
+
+    }
+
     public Node(Integer key) {
         this.rootCircle = new Circle(key);
     }

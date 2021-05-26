@@ -75,5 +75,9 @@ public class TestGenericTree {
 		for (Node i : postOrderList) {
 			System.out.print(i.rootCircle.getSearchKey() + "  ");
 		}
+
+		System.out.println();
+		Node searchNode = tempTree.searchNode(tempTree.root, 6);
+		System.out.println(searchNode.rootCircle.getSearchKey());
 	}
 }

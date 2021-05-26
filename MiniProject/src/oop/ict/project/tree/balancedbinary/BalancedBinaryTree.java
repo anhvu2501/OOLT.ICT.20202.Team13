@@ -1,33 +1,33 @@
-package oop.ict.project.tree.balanced;
+package oop.ict.project.tree.balancedbinary;
 
 import oop.ict.project.shape.Circle;
+import oop.ict.project.tree.binary.BinaryTree;
 import oop.ict.project.tree.exception.TreeException;
-import oop.ict.project.tree.generic.GenericTree;
 import oop.ict.project.tree.generic.Node;
 
-public class BalancedTree extends GenericTree {
-
+public class BalancedBinaryTree extends BinaryTree {
+    final int MAX_NB_CHILDREN = 2;
     private int limitDistance;
     private int minLeafDepth;
     private int maxLeafDepth;
 
-    public BalancedTree() {
+    public BalancedBinaryTree() {
         super();
-        this.limitDistance = 1;  //Default value
-        this.minLeafDepth = 1; // this is initialize for
-        this.maxLeafDepth = 1;        // a tree with only root
+        this.limitDistance = 1;
+        this.minLeafDepth = 1;
+        this.maxLeafDepth = 1;
     }
 
-    public BalancedTree(Node root) {
+    public BalancedBinaryTree(Node root) {
         super(root);
-        this.limitDistance = 1;  //Default value
-        this.minLeafDepth = 1; // this is initialize for
-        this.maxLeafDepth = 1;        // a tree with only root
+        this.limitDistance = 1;
+        this.minLeafDepth = 1;
+        this.maxLeafDepth = 1;
     }
 
-    public BalancedTree(Circle rootValue) {
-        super(rootValue);
-        this.limitDistance = 1; //Default value
+    public BalancedBinaryTree (Circle newCircle) {
+        super(newCircle);
+        this.limitDistance = 1;
         this.minLeafDepth = 1;
         this.maxLeafDepth = 1;
     }
@@ -53,13 +53,14 @@ public class BalancedTree extends GenericTree {
         boolean isParentInTree = isInTree(root, parentValue);
         if (isParentInTree) {
             Node foundParentNode = searchNode(root, parentValue);
-            if (foundParentNode.getDepth() + 1 - this.minLeafDepth <= this.limitDistance) {
+            if (foundParentNode.getDepth() + 1 - this.minLeafDepth <= this.limitDistance && foundParentNode
+                    .getNbChildren() < this.MAX_NB_CHILDREN) {
                 newNode.setDepth(foundParentNode.getDepth() + 1);
                 foundParentNode.children.add(newNode);
                 updateMaxMin(this.root);
                 return newNode;
             } else {
-                throw new TreeException("Cannot insert! The node make the tree imbalanced");
+                throw new TreeException("Cannot insert! There only has 2 nodes");
             }
         } else {
             throw new TreeException("Cannot find node with value " + parentValue);
@@ -86,5 +87,4 @@ public class BalancedTree extends GenericTree {
         for (Node child : root.children)
             updateMaxMin(child);
     }
-
 }

@@ -3,6 +3,7 @@ package oop.ict.project.tree.generic;
 import oop.ict.project.shape.Circle;
 import oop.ict.project.tree.exception.TreeException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -158,5 +159,6 @@ public class GenericTree {
 
         return null;
     }
+
 
 }
