@@ -2,8 +2,6 @@ package oop.ict.project.tree.balanced;
 
 import java.util.ArrayList;
 
-import oop.ict.project.tree.generic.GenericTree;
-import oop.ict.project.tree.balanced.BalancedTree;
 import oop.ict.project.tree.generic.Node;
 
 public class TestBalancedTree {
