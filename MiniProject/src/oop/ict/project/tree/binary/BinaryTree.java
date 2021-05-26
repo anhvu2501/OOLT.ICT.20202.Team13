@@ -9,8 +9,9 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class BinaryTree extends GenericTree {
-	final int MAX_NB_CHILDREN = 2;
-	public BinaryTree() {
+    final int MAX_NB_CHILDREN = 2;
+
+    public BinaryTree() {
         super();
     }
 
@@ -21,27 +22,85 @@ public class BinaryTree extends GenericTree {
     public BinaryTree(Circle rootValue) {
         super(rootValue);
     }
-	
+
     @Override
     public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
         boolean isParentInTree = isInTree(root, parentValue);
         if (isParentInTree) {
             Node foundParentNode = searchNode(root, parentValue);
-            if(foundParentNode.getNbChildren()<this.MAX_NB_CHILDREN) {
-            	newNode.setDepth(foundParentNode.getDepth()+1);
-            	foundParentNode.children.add(newNode);
-            	return newNode;
+            if (foundParentNode.getNbChildren() < this.MAX_NB_CHILDREN) {
+                newNode.setDepth(foundParentNode.getDepth() + 1);
+                foundParentNode.children.add(newNode);
+                return newNode;
+            } else {
+                throw new TreeException("Cannot insert! Binary tree can only has maximum 2 children per node");
             }
-            else {
-            	throw new TreeException("Cannot insert! Binary tree can only has maximum 2 children per node");
-            }
-            
+
         } else {
             throw new TreeException("Cannot find node with value " + parentValue);
         }
     }
-	
-	
+
+    public void deleteDeepest(Node root, Node delNodeBinary) {
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+
+        Node temp;
+
+        while (!q.isEmpty()) {
+            temp = q.peek();
+            q.remove();
+
+            if (temp == delNodeBinary) {
+                return;
+            }
+
+            for (Node node : temp.children) {
+                if (node != null) {
+                    if (node == delNodeBinary)
+                        return;
+                } else
+                    q.add(null);
+            }
+        }
+    }
+
+    public void deleteNodeBinary(Node root, int key) {
+        if (root == null)
+            return;
+
+        for (Node node : root.children) {
+            if (node == null) {
+                return;
+            }
+        }
+
+        Queue<Node> q = new LinkedList<>();
+        q.add(root);
+        Node temp = null;
+        Node keyNodeBinary = null;
+
+        while (!q.isEmpty()) {
+            temp = q.peek();
+            q.remove();
+
+            if (temp.rootCircle.getSearchKey() == key)
+                keyNodeBinary = temp;
+
+            for (Node node : temp.children) {
+                if (node != null)
+                    q.add(node);
+            }
+        }
+
+        if (keyNodeBinary != null) {
+            int x = temp.rootCircle.getSearchKey();
+            deleteDeepest(root, temp);
+            keyNodeBinary.rootCircle = new Circle(x);
+        }
+    }
+
+
 //    public NodeBinary root;
 //
 //    public BinaryTree(Circle rootCircle) {
