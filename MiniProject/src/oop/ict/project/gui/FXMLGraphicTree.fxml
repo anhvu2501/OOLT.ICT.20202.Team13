@@ -18,7 +18,6 @@
                   <MenuItem mnemonicParsing="false" onAction="#balancedBinaryTreePressed" text="Balanced Binary Tree" />
               </items>
             </MenuButton>
-            <TextField fx:id="parentNodeKey" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="120.0" promptText="Parent's Key" />
             <TextField fx:id="inputNodeKey" prefHeight="40.0" prefWidth="120.0" promptText="Key" />
             <Button mnemonicParsing="false" onAction="#createPressed" prefHeight="40.0" prefWidth="90.0" text="Create" />
             <Button mnemonicParsing="false" onAction="#insertPressed" prefHeight="40.0" prefWidth="90.0" text="Insert" />
@@ -37,4 +36,7 @@
    <top>
       <Label fx:id="currentTreeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="215.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER" />
    </top>
+   <center>
+      <BorderPane fx:id="rootContainer" BorderPane.alignment="CENTER" />
+   </center>
 </BorderPane>

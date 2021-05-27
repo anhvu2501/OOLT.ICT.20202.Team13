@@ -12,6 +12,7 @@ public class MainMenuScreen extends Application  {
 			Parent root = FXMLLoader.load(getClass().getResource("/oop/ict/project/gui/FXMLGraphicTree.fxml"));
 			Scene scene = new Scene(root);
 			stage.setScene(scene);
+			stage.setTitle("Tree Visualization Program");
 			stage.show();
 			}catch(Exception e) {
 				e.printStackTrace();
