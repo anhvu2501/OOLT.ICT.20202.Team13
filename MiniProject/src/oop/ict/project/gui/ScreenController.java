@@ -2,47 +2,48 @@ package oop.ict.project.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-public class ScreenController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXML
-    private TextField parentNodeKey;
+public class ScreenController implements Initializable {
 
     @FXML
     private TextField inputNodeKey;
 
     @FXML
-    private MenuButton selectTreeMenu;
-
-    @FXML
     private Label currentTreeName;
 
-    
-    public void initialize() {
-    	currentTreeName.setText("GENERIC TREE");
-    }
-    @FXML
-    void genericTreePressed(ActionEvent event) {
-    	currentTreeName.setText("GENERIC TREE");
+    public static Label staticLabel;
+
+    private GraphicTree graphicTree;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        staticLabel = currentTreeName;
     }
 
-    @FXML
-    void binaryTreePressed(ActionEvent event) {
-    	currentTreeName.setText("BINARY TREE");
+    public Label getCurrentTreeName() {
+        return currentTreeName;
     }
 
-    @FXML
-    void balancedTreePressed(ActionEvent event) {
-    	currentTreeName.setText("BALANCED TREE");
+    public void setCurrentTreeName(Label currentTreeName) {
+        this.currentTreeName = currentTreeName;
     }
 
-    @FXML
-    void balancedBinaryTreePressed(ActionEvent event) {
-    	currentTreeName.setText("BALANCED BINARY TREE");
-    }
+    private Stage stage;
+    private Scene scene;
+
 
     @FXML
     void createPressed(ActionEvent event) {
@@ -77,6 +78,15 @@ public class ScreenController {
     @FXML
     void postorderPressed(ActionEvent event) {
 
+    }
+
+    @FXML
+    void backPressed(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("screenmenu.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
