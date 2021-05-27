@@ -55,13 +55,40 @@ public class BinaryTree extends GenericTree {
                 return;
             }
 
-            for (Node node : temp.children) {
-                if (node != null) {
-                    if (node == delNodeBinary)
+//            for (Node node : temp.children) {
+//                if (node != null) {
+//                    if (node == delNodeBinary)
+//                        return;
+//                    else
+//                        q.add(node);
+//                }
+//            }
+
+            for (int i = 0; i < temp.children.size(); i++) {
+                if (temp.children.get(i) != null) {
+                    if (temp.children.get(i).equals(delNodeBinary)) {
+                        temp.children.set(i, null);
                         return;
-                } else
-                    q.add(null);
+                    } else
+                        q.add(temp.children.get(i));
+                }
             }
+
+//            if (temp.children.get(temp.children.size() - 1) != null) {
+//                if (temp.children.get(temp.children.size() - 1).equals(delNodeBinary)) {
+//                    temp.children.set(temp.children.size() - 1, null);
+//                    return;
+//                } else
+//                    q.add(temp.children.get(temp.children.size() - 1));
+//            }
+//
+//            if (temp.children.get(0) != null) {
+//                if (temp.children.get(0).equals(delNodeBinary)) {
+//                    temp.children.set(0, null);
+//                    return;
+//                } else
+//                    q.add(temp.children.get(0 - 1));
+//            }
         }
     }
 

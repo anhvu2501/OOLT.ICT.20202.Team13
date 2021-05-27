@@ -31,7 +31,7 @@ public class TestBinaryTree {
 		}
 
 		tempTree.deleteNodeBinary(tempTree.root, 6);
-		System.out.println("\nPreorder: ");
+		System.out.println("\nAfter deleting - Preorder: ");
 		ArrayList<Node> preorderList = tempTree.traversePreOrder();
 		for (Node i : preorderList) {
 			System.out.print(i.rootCircle.getSearchKey() + "  ");
