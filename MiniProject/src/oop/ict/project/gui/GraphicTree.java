@@ -1,6 +1,5 @@
 package oop.ict.project.gui;
 
-
 import java.util.ArrayList;
 
 import javafx.animation.KeyFrame;
@@ -14,117 +13,120 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import oop.ict.project.tree.balanced.BalancedTree;
 import oop.ict.project.tree.binary.BinaryTree;
+import oop.ict.project.tree.exception.TreeException;
 import oop.ict.project.tree.generic.GenericTree;
+import oop.ict.project.tree.generic.Node;
+import oop.ict.project.shape.Line;
 
 public class GraphicTree extends Canvas {
 
-	
-	private GenericTree genericTree; //type1
-	private BinaryTree binaryTree; //type2
-	private BalancedTree balancedTree; //type3
+	private GenericTree genericTree; // type1
+	private BinaryTree binaryTree; // type2
+	private BalancedTree balancedTree; // type3
 //	private BalancedBinaryTree balancedBinaryTree; // type4
 	private GenericTree mainTree;
-	
+	private static final int numberLayer = 8;
+	private ArrayList<Node> nodeList;
+
 	public void switchTree(Integer type) {
-		if(type==1) {
+		if (type == 1) {
 			this.mainTree = this.genericTree;
-		}else if(type==2) {
+		} else if (type == 2) {
 			this.mainTree = this.binaryTree;
-		}else if(type==3){
+		} else if (type == 3) {
 			this.mainTree = this.balancedTree;
 		}
 	}
 
-	public GraphicTree() {
-		this.genericTree = new GenericTree();
+	public GraphicTree() throws TreeException {
+		this.genericTree = new GenericTree(new Node(4));
+		this.genericTree.insertNode(4, new Node(2));
+		this.genericTree.insertNode(4, new Node(5));
+		this.genericTree.insertNode(4, new Node(6));
+		this.genericTree.insertNode(5, new Node(7));
+		this.genericTree.insertNode(5, new Node(8));
+		this.genericTree.insertNode(7, new Node(9));
+
 		this.binaryTree = new BinaryTree();
 		this.balancedTree = new BalancedTree();
-		widthProperty().addListener(evt -> draw());
-		heightProperty().addListener(evt -> draw());
+		this.mainTree = this.genericTree;
+		widthProperty().addListener(evt -> drawTree());
+		heightProperty().addListener(evt -> drawTree());
 	}
-	
+
 	public void draw() {
 		GraphicsContext gc = this.getGraphicsContext2D();
-		Timeline timeline = new Timeline(
-			    new KeyFrame(Duration.seconds(2), evt -> {
-					Point2D point = new Point2D(700, 500);
-					gc.setLineWidth(3); // Sets the width of the lines
-					int RADIUS = 20;
-					gc.setFill(Color.rgb(99, 99, 99));
-					gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-					
-					// Outline the circle border
-					gc.setStroke(Color.rgb(99, 99, 99));
-					gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
+		Timeline timeline = new Timeline();
+		for (Integer index = 1; index < 4; index++) {
+			final Integer i = index;
+			KeyFrame kf = new KeyFrame(Duration.seconds(i * 2), evt -> {
+				Point2D point = new Point2D(100 * i, 100 * i);
+				gc.setLineWidth(3); // Sets the width of the lines
+				int RADIUS = 20;
+				gc.setFill(Color.rgb(99, 99, 99));
+				gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
 
-					// Draw the id number inside the circle
-					gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
-					gc.setFill(Color.web("#FCFCFC"));
-					gc.fillText("2",
-							 point.getX() - (16 / 2),
-							 point.getY() + (16 / 4));
-//					i=i+1;
-			    }),
-			    new KeyFrame(Duration.seconds(4), evt -> {
-					Point2D point = new Point2D(200, 300);
-					gc.setLineWidth(3); // Sets the width of the lines
-					int RADIUS = 20;
-					gc.setFill(Color.rgb(99, 99, 99));
-					gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-					
-					// Outline the circle border
-					gc.setStroke(Color.rgb(99, 99, 99));
-					gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
+				// Outline the circle border
+				gc.setStroke(Color.rgb(99, 99, 99));
+				gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
 
-					// Draw the id number inside the circle
-					gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
-					gc.setFill(Color.web("#FCFCFC"));
-					gc.fillText("3",
-							 point.getX() - (16 / 2),
-							 point.getY() + (16 / 4));
-//					i=i+1;
-			    }),
-			    new KeyFrame(Duration.seconds(6), evt -> {
-					Point2D point = new Point2D(700, 500);
-					gc.setLineWidth(3); // Sets the width of the lines
-					int RADIUS = 20;
-					gc.setFill(Color.rgb(99, 99, 99));
-					gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-					
-					// Outline the circle border
-					gc.setStroke(Color.rgb(99, 99, 99));
-					gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-
-					// Draw the id number inside the circle
-					gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
-					gc.setFill(Color.web("#FCFCFC"));
-					gc.fillText("4",
-							 point.getX() - (16 / 2),
-							 point.getY() + (16 / 4));
-			    })
-			);
-		Timeline timeline1 = new Timeline(
-			    new KeyFrame(Duration.seconds(2), evt -> {
-					Point2D point = new Point2D(700, 500);
-					gc.setLineWidth(3); // Sets the width of the lines
-					int RADIUS = 20;
-					gc.setFill(Color.rgb(99, 99, 99));
-					gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-					
-					// Outline the circle border
-					gc.setStroke(Color.rgb(2, 2, 2));
-					gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-
-					// Draw the id number inside the circle
-					gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
-					gc.setFill(Color.web("#FCFCFC"));
-					gc.fillText("9",
-							 point.getX() - (16 / 2),
-							 point.getY() + (16 / 4));
-//					i=i+1;
-			    }));
+				// Draw the id number inside the circle
+				gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
+				gc.setFill(Color.web("#FCFCFC"));
+				gc.fillText(i.toString(), point.getX() - (16 / 2), point.getY() + (16 / 4));
+			});
+			timeline.getKeyFrames().add(kf);
+		}
 		timeline.play();
-		timeline1.play();
+	}
+
+	public void drawTree() {
+		GraphicsContext gc = this.getGraphicsContext2D();
+		clear();
+		if (this.mainTree.root != null) {
+			drawLines(gc, this.mainTree.root, 0, this.getWidth(), 0, this.getHeight() / this.numberLayer);
+			drawCircles(gc, this.mainTree.root, 0, this.getWidth(), 0, this.getHeight() / this.numberLayer);
+		}
+	}
+
+	public void drawCircles(GraphicsContext gc, Node root, double minWidth, double maxWidth, double minHeight,
+			double maxHeight) {
+		Point2D point = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
+		root.rootCircle.setPoint(point);
+		root.rootCircle.draw(gc);
+		System.out.println(root.rootCircle.getSearchKey());
+		for (int i = 0; i < root.getNbChildren(); i++) {
+			drawCircles(gc, root.children.get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
+					minWidth + (i + 1) * (maxWidth - minWidth) / root.getNbChildren(), maxHeight,
+					2 * maxHeight - minHeight);
+		}
+	}
+
+	public void drawLines(GraphicsContext gc, Node root, double minWidth, double maxWidth, double minHeight,
+			double maxHeight) {
+		Point2D linePoint1; // Point_1
+		Point2D linePoint2; // Point_2
+		Line newLine = new Line(); // Blank line
+		linePoint1 = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
+		if (root.getNbChildren() != 0) {
+			for (int i = 0; i < root.getNbChildren(); i++) {
+				linePoint2 = new Point2D((2*minWidth + (2*i+1) * (maxWidth - minWidth) / root.getNbChildren())/2, (3*maxHeight-minHeight)/2);
+				newLine.setPoint(linePoint1, linePoint2);
+				newLine.draw(gc);// Draw the line
+
+				drawLines(gc, root.children.get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
+						minWidth + (i + 1) * (maxWidth - minWidth) / root.getNbChildren(), maxHeight,
+						2 * maxHeight - minHeight);
+			}
+		}
+	}
+
+	public void highlightSequence(ArrayList<Node> ar) {
+
+	}
+
+	public void clear() {
+		getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
 
 }

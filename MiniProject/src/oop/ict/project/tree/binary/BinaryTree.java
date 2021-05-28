@@ -23,23 +23,23 @@ public class BinaryTree extends GenericTree {
         super(rootValue);
     }
 
-    @Override
-    public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
-        boolean isParentInTree = isInTree(root, parentValue);
-        if (isParentInTree) {
-            Node foundParentNode = searchNode(root, parentValue);
-            if (foundParentNode.getNbChildren() < this.MAX_NB_CHILDREN) {
-                newNode.setDepth(foundParentNode.getDepth() + 1);
-                foundParentNode.children.add(newNode);
-                return newNode;
-            } else {
-                throw new TreeException("Cannot insert! Binary tree can only has maximum 2 children per node");
-            }
-
-        } else {
-            throw new TreeException("Cannot find node with value " + parentValue);
-        }
-    }
+//    @Override
+//    public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
+//        boolean isParentInTree = isInTree(root, parentValue);
+//        if (isParentInTree) {
+//            Node foundParentNode = searchNode(root, parentValue);
+//            if (foundParentNode.getNbChildren() < this.MAX_NB_CHILDREN) {
+//                newNode.setDepth(foundParentNode.getDepth() + 1);
+//                foundParentNode.children.add(newNode);
+//                return newNode;
+//            } else {
+//                throw new TreeException("Cannot insert! Binary tree can only has maximum 2 children per node");
+//            }
+//
+//        } else {
+//            throw new TreeException("Cannot find node with value " + parentValue);
+//        }
+//    }
 
     public void deleteDeepest(Node root, Node delNodeBinary) {
         Queue<Node> q = new LinkedList<>();
@@ -55,13 +55,40 @@ public class BinaryTree extends GenericTree {
                 return;
             }
 
-            for (Node node : temp.children) {
-                if (node != null) {
-                    if (node == delNodeBinary)
+//            for (Node node : temp.children) {
+//                if (node != null) {
+//                    if (node == delNodeBinary)
+//                        return;
+//                    else
+//                        q.add(node);
+//                }
+//            }
+
+            for (int i = 0; i < temp.children.size(); i++) {
+                if (temp.children.get(i) != null) {
+                    if (temp.children.get(i).equals(delNodeBinary)) {
+                        temp.children.set(i, null);
                         return;
-                } else
-                    q.add(null);
+                    } else
+                        q.add(temp.children.get(i));
+                }
             }
+
+//            if (temp.children.get(temp.children.size() - 1) != null) {
+//                if (temp.children.get(temp.children.size() - 1).equals(delNodeBinary)) {
+//                    temp.children.set(temp.children.size() - 1, null);
+//                    return;
+//                } else
+//                    q.add(temp.children.get(temp.children.size() - 1));
+//            }
+//
+//            if (temp.children.get(0) != null) {
+//                if (temp.children.get(0).equals(delNodeBinary)) {
+//                    temp.children.set(0, null);
+//                    return;
+//                } else
+//                    q.add(temp.children.get(0 - 1));
+//            }
         }
     }
 

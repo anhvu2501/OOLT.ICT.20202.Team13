@@ -2,87 +2,67 @@ package oop.ict.project.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Point2D;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
+import oop.ict.project.tree.exception.TreeException;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 
 public class ScreenController {
-
 
     @FXML
     private TextField inputNodeKey;
 
     @FXML
-    private MenuButton selectTreeMenu;
-
-    @FXML
     private Label currentTreeName;
     
     @FXML
-    private BorderPane rootContainer;
-    
+    private BorderPane screenContainer;
+
+    public static Label staticLabel;
+
     private GraphicTree graphicTree;
 
-    
     public void initialize() {
-    	currentTreeName.setText("GENERIC TREE");
-    	// The center panel for drawing the tree
-    	this.graphicTree = new GraphicTree();
-    	rootContainer.setCenter(graphicTree);
-    	
-    	this.graphicTree.widthProperty().bind(rootContainer.widthProperty());
-    	this.graphicTree.heightProperty().bind(rootContainer.heightProperty());
-    	this.graphicTree.switchTree(1);
-    }
-    @FXML
-    void genericTreePressed(ActionEvent event) {
-    	currentTreeName.setText("GENERIC TREE");
-    	this.graphicTree.switchTree(1);;
+        staticLabel = currentTreeName;
+     	try {
+			graphicTree = new GraphicTree();
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     	screenContainer.setCenter(graphicTree);
+     	
+     	graphicTree.widthProperty().bind(screenContainer.widthProperty());
+     	graphicTree.heightProperty().bind(screenContainer.heightProperty());
     }
 
-    @FXML
-    void binaryTreePressed(ActionEvent event) {
-    	currentTreeName.setText("BINARY TREE");
-    	this.graphicTree.switchTree(2);
+    public Label getCurrentTreeName() {
+        return currentTreeName;
     }
 
-    @FXML
-    void balancedTreePressed(ActionEvent event) {
-    	currentTreeName.setText("BALANCED TREE");
-    	this.graphicTree.switchTree(3);
+    public void setCurrentTreeName(Label currentTreeName) {
+        this.currentTreeName = currentTreeName;
     }
 
-    @FXML
-    void balancedBinaryTreePressed(ActionEvent event) {
-    	currentTreeName.setText("BALANCED BINARY TREE");
-    }
+    private Stage stage;
+    private Scene scene;
+
 
     @FXML
     void createPressed(ActionEvent event) {
-    	GraphicsContext gc = graphicTree.getGraphicsContext2D();
-		Point2D point = new Point2D(0, 0);
-		gc.setLineWidth(3); // Sets the width of the lines
-		int RADIUS = 20;
-		gc.setFill(Color.rgb(99, 99, 99));
-		gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-		
-		// Outline the circle border
-		gc.setStroke(Color.rgb(99, 99, 99));
-		gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
 
-		// Draw the id number inside the circle
-		gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
-		gc.setFill(Color.web("#FCFCFC"));
-		gc.fillText("4",
-				 point.getX() - (16 / 2),
-				 point.getY() + (16 / 4));
     }
 
     @FXML
@@ -113,6 +93,15 @@ public class ScreenController {
     @FXML
     void postorderPressed(ActionEvent event) {
 
+    }
+
+    @FXML
+    void backPressed(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("ScreenMenu.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

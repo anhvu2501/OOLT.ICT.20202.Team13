@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.ict.project.gui.ScreenController">
    <bottom>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <MenuButton fx:id="selectTreeMenu" mnemonicParsing="false" prefHeight="40.0" prefWidth="140.0" text="Select tree">
-              <items>
-                <MenuItem onAction="#genericTreePressed" text="Generic Tree" />
-                <MenuItem mnemonicParsing="false" onAction="#binaryTreePressed" text="Binary Tree" />
-                  <MenuItem mnemonicParsing="false" onAction="#balancedTreePressed" text="Balanced Tree" />
-                  <MenuItem mnemonicParsing="false" onAction="#balancedBinaryTreePressed" text="Balanced Binary Tree" />
-              </items>
-            </MenuButton>
             <TextField fx:id="inputNodeKey" prefHeight="40.0" prefWidth="120.0" promptText="Key" />
             <Button mnemonicParsing="false" onAction="#createPressed" prefHeight="40.0" prefWidth="90.0" text="Create" />
             <Button mnemonicParsing="false" onAction="#insertPressed" prefHeight="40.0" prefWidth="90.0" text="Insert" />
@@ -30,13 +29,17 @@
                 <MenuItem mnemonicParsing="false" onAction="#postorderPressed" text="Postorder" />
               </items>
             </MenuButton>
+            <Button layoutX="705.0" layoutY="15.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="40.0" prefWidth="90.0" text="Back" />
          </children>
       </HBox>
    </bottom>
    <top>
-      <Label fx:id="currentTreeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="215.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER" />
+      <Label fx:id="currentTreeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" text="Visualization" textAlignment="CENTER" textFill="#cd3908" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
    </top>
    <center>
-      <BorderPane fx:id="rootContainer" BorderPane.alignment="CENTER" />
+      <BorderPane fx:id="screenContainer" prefHeight="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

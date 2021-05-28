@@ -48,43 +48,43 @@ public class BalancedBinaryTree extends BinaryTree {
         return maxLeafDepth;
     }
 
-    @Override
-    public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
-        boolean isParentInTree = isInTree(root, parentValue);
-        if (isParentInTree) {
-            Node foundParentNode = searchNode(root, parentValue);
-            if (foundParentNode.getDepth() + 1 - this.minLeafDepth <= this.limitDistance && foundParentNode
-                    .getNbChildren() < this.MAX_NB_CHILDREN) {
-                newNode.setDepth(foundParentNode.getDepth() + 1);
-                foundParentNode.children.add(newNode);
-                updateMaxMin(this.root);
-                return newNode;
-            } else {
-                throw new TreeException("Cannot insert! There only has 2 nodes");
-            }
-        } else {
-            throw new TreeException("Cannot find node with value " + parentValue);
-        }
-    }
+//    @Override
+//    public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
+//        boolean isParentInTree = isInTree(root, parentValue);
+//        if (isParentInTree) {
+//            Node foundParentNode = searchNode(root, parentValue);
+//            if (foundParentNode.getDepth() + 1 - this.minLeafDepth <= this.limitDistance && foundParentNode
+//                    .getNbChildren() < this.MAX_NB_CHILDREN) {
+//                newNode.setDepth(foundParentNode.getDepth() + 1);
+//                foundParentNode.children.add(newNode);
+//                updateMaxMin(this.root);
+//                return newNode;
+//            } else {
+//                throw new TreeException("Cannot insert! There only has 2 nodes");
+//            }
+//        } else {
+//            throw new TreeException("Cannot find node with value " + parentValue);
+//        }
+//    }
 
-    public void updateMaxMin(Node root) {
-        if (root == this.root) {
-            if (root.getNbChildren() == 0) {
-                this.minLeafDepth = 1;
-                this.maxLeafDepth = 1;
-                return;
-            } else {
-                this.minLeafDepth = 999999;
-                this.maxLeafDepth = -1;
-            }
-        }
-        if (root.getNbChildren() == 0 && root != this.root) {
-            if (root.getDepth() < this.minLeafDepth)
-                this.minLeafDepth = root.getDepth();
-            if (root.getDepth() > this.maxLeafDepth)
-                this.maxLeafDepth = root.getDepth();
-        }
-        for (Node child : root.children)
-            updateMaxMin(child);
-    }
+//    public void updateMaxMin(Node root) {
+//        if (root == this.root) {
+//            if (root.getNbChildren() == 0) {
+//                this.minLeafDepth = 1;
+//                this.maxLeafDepth = 1;
+//                return;
+//            } else {
+//                this.minLeafDepth = 999999;
+//                this.maxLeafDepth = -1;
+//            }
+//        }
+//        if (root.getNbChildren() == 0 && root != this.root) {
+//            if (root.getDepth() < this.minLeafDepth)
+//                this.minLeafDepth = root.getDepth();
+//            if (root.getDepth() > this.maxLeafDepth)
+//                this.maxLeafDepth = root.getDepth();
+//        }
+//        for (Node child : root.children)
+//            updateMaxMin(child);
+//    }
 }
