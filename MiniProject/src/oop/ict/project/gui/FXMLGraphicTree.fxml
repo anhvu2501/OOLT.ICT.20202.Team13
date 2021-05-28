@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.ict.project.gui.ScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.ict.project.gui.ScreenController">
    <bottom>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
@@ -29,7 +29,9 @@
                 <MenuItem mnemonicParsing="false" onAction="#postorderPressed" text="Postorder" />
               </items>
             </MenuButton>
-            <Button layoutX="705.0" layoutY="15.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="40.0" prefWidth="90.0" text="Back" />
+            <Button layoutX="705.0" layoutY="15.0" mnemonicParsing="false" onAction="#undoPressed" prefHeight="40.0" prefWidth="90.0" text="Undo" />
+            <Button layoutX="810.0" layoutY="15.0" mnemonicParsing="false" onAction="#redoPressed" prefHeight="40.0" prefWidth="90.0" text="Redo" />
+            <Button layoutX="855.0" layoutY="15.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="40.0" prefWidth="90.0" text="Back" />
          </children>
       </HBox>
    </bottom>

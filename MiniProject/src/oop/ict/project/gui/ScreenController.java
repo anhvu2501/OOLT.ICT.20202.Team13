@@ -14,10 +14,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oop.ict.project.tree.exception.TreeException;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 
 public class ScreenController {
 
@@ -46,6 +46,7 @@ public class ScreenController {
      	
      	graphicTree.widthProperty().bind(screenContainer.widthProperty());
      	graphicTree.heightProperty().bind(screenContainer.heightProperty());
+
     }
 
     public Label getCurrentTreeName() {
@@ -97,11 +98,22 @@ public class ScreenController {
 
     @FXML
     void backPressed(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("ScreenMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("screenmenu.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    @FXML
+    void redoPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void undoPressed(ActionEvent event) {
+
     }
 
 }
