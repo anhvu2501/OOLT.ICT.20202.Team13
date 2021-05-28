@@ -45,35 +45,7 @@ public class GraphicTree extends Canvas {
 		this.mainTree = this.genericTree;
 		widthProperty().addListener(evt -> drawTree());
 		heightProperty().addListener(evt -> drawTree());
-//		draw2();
 	}
-	
-//	public void draw() {
-//		this.drawHighlightSequence(this.highlightList);
-//	}
-//	public void draw2() throws TreeException {
-//		Node temp = new Node(4);
-//		this.highlightList.add(temp);
-//		this.genericTree.root = temp;
-//		temp = new Node(2);
-//		this.highlightList.add(temp);
-//		this.genericTree.insertNode(4, temp);
-//		temp = new Node(5);
-//		this.highlightList.add(temp);
-//		this.genericTree.insertNode(4, temp);
-//		temp = new Node(6);
-//		this.highlightList.add(temp);
-//		this.genericTree.insertNode(4, temp);
-//		temp = new Node(7);
-//		this.highlightList.add(temp);
-//		this.genericTree.insertNode(5, temp);
-//		temp = new Node(8);
-//		this.highlightList.add(temp);
-//		this.genericTree.insertNode(5, temp);
-//		temp = new Node(9);
-//		this.highlightList.add(temp);
-//		this.genericTree.insertNode(7, temp);
-//	}
 
 	public void drawTree() {
 		GraphicsContext gc = this.getGraphicsContext2D();
@@ -104,7 +76,9 @@ public class GraphicTree extends Canvas {
 		linePoint1 = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
 		if (root.getNbChildren() != 0) {
 			for (int i = 0; i < root.getNbChildren(); i++) {
-				linePoint2 = new Point2D((2*minWidth + (2*i+1) * (maxWidth - minWidth) / root.getNbChildren())/2, (3*maxHeight-minHeight)/2);
+				linePoint2 = new Point2D(
+						(2 * minWidth + (2 * i + 1) * (maxWidth - minWidth) / root.getNbChildren()) / 2,
+						(3 * maxHeight - minHeight) / 2);
 				newLine.setPoint(linePoint1, linePoint2);
 				newLine.draw(gc);// Draw the line
 
@@ -126,15 +100,15 @@ public class GraphicTree extends Canvas {
 		for (Integer index = 1; index < ar.size(); index++) {
 			final Integer i = index;
 			KeyFrame kf1 = new KeyFrame(Duration.seconds(i), evt -> {
-				ar.get(i-1).rootCircle.setHighlighter(false);
+				ar.get(i - 1).rootCircle.setHighlighter(false);
 				ar.get(i).rootCircle.setHighlighter(true);
 				drawTree();
 			});
 			timeline.getKeyFrames().add(kf1);
 		}
-		
-		KeyFrame kf2 = new KeyFrame(Duration.seconds(ar.size()), evt ->{
-			ar.get(ar.size()-1).rootCircle.setHighlighter(false);
+
+		KeyFrame kf2 = new KeyFrame(Duration.seconds(ar.size()), evt -> {
+			ar.get(ar.size() - 1).rootCircle.setHighlighter(false);
 			drawTree();
 		});
 		timeline.getKeyFrames().add(kf2);
