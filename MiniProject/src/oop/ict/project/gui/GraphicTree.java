@@ -26,7 +26,7 @@ public class GraphicTree extends Canvas {
 //	private BalancedBinaryTree balancedBinaryTree; // type4
 	private GenericTree mainTree;
 	private static final int numberLayer = 8;
-	private ArrayList<Node> highlightList = new ArrayList<Node>();
+	private ArrayList<Node> nodeList;
 
 	public void switchTree(Integer type) {
 		if (type == 1) {
@@ -61,6 +61,7 @@ public class GraphicTree extends Canvas {
 		Point2D point = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
 		root.rootCircle.setPoint(point);
 		root.rootCircle.draw(gc);
+		System.out.println(root.rootCircle.getSearchKey());
 		for (int i = 0; i < root.getNbChildren(); i++) {
 			drawCircles(gc, root.children.get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
 					minWidth + (i + 1) * (maxWidth - minWidth) / root.getNbChildren(), maxHeight,
@@ -113,7 +114,6 @@ public class GraphicTree extends Canvas {
 		});
 		timeline.getKeyFrames().add(kf2);
 		timeline.play();
-
 	}
 
 	public void clear() {

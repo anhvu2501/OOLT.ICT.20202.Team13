@@ -70,7 +70,8 @@ public class ScreenMenuController {
     @FXML
     void selectHelpMenu(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,
-                "How to visualize a tree:\n " +
+                "Aims: Visualization of Tree Data Structures" +
+                        "\n\nHow to visualize a tree:\n " +
                         "Step 1: Choose your type of tree\n" +
                         "Step 2: Choose operations\n" +
                         "Step 2: Wait and enjoy your work\n", ButtonType.OK);

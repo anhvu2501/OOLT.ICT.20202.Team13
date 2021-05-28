@@ -1,54 +1,86 @@
 package oop.ict.project.tree.binary;
 
-import java.util.ArrayList;
-
-import oop.ict.project.tree.balanced.BalancedTree;
 import oop.ict.project.tree.exception.TreeException;
 import oop.ict.project.tree.generic.Node;
 
+import java.util.ArrayList;
+
 public class TestBinaryTree {
-	public static void main(String[] args) throws TreeException {
-		BinaryTree tempTree = new BinaryTree(new Node(4));
-		Integer rootValue = tempTree.root.rootCircle.getSearchKey();
-		try {
-//			Node tempNode = tempTree.insertNode(rootValue, new Node(1));
-//			tempNode = tempTree.insertNode(rootValue, new Node(2));
-//			tempNode = tempTree.insertNode(1, new Node(14));
-//			tempNode = tempTree.insertNode(1, new Node(6));
-//			tempNode = tempTree.insertNode(2, new Node(7));
-//			tempNode = tempTree.insertNode(2, new Node(5));
-//			dong duoi k insert dc do khi insert thi so children se >2
-//			tempNode = tempTree.insertNode(2, new Node(3));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
-		}
-		
-		System.out.println("Preorder Traversal");
-		ArrayList<Node> preOrderList = tempTree.traversePreOrder();
-		for (Node i : preOrderList) {
-			System.out.print(i.rootCircle.getSearchKey() + "  ");
-		}
+    public static void main(String[] args) throws TreeException {
+        BinaryTree tempTree = new BinaryTree(new Node(4));
+        Integer rootValue = tempTree.root.rootCircle.getSearchKey();
+        try {
+            ArrayList<Node> listNodes = tempTree.insertNode(rootValue, new Node(2));
+            listNodes = tempTree.insertNode(rootValue, new Node(1));
+            listNodes = tempTree.insertNode(1, new Node(3));
+            listNodes = tempTree.insertNode(1, new Node(7));
+            listNodes = tempTree.insertNode(2, new Node(5));
+            listNodes = tempTree.insertNode(2, new Node(6));
 
-		tempTree.deleteNodeBinary(tempTree.root, 6);
-		System.out.println("\nAfter deleting - Preorder: ");
-		ArrayList<Node> preorderList = tempTree.traversePreOrder();
-		for (Node i : preorderList) {
-			System.out.print(i.rootCircle.getSearchKey() + "  ");
-		}
-		System.out.println();
+            ArrayList<Node> searchNode = new ArrayList<>();
+            searchNode.add(tempTree.root);
+            searchNode = tempTree.searchNode(searchNode, 5);
+            System.out.println("Search list of 5:");
+            for (Node index : searchNode) {
+                System.out.print(index.rootCircle.getSearchKey() + "  ");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
 
-		tempTree.updateValueOfNode(2, 20);
-		System.out.println("\nPreorder: ");
-		preorderList = tempTree.traversePreOrder();
-		for (Node i : preorderList) {
-			System.out.print(i.rootCircle.getSearchKey() + "  ");
-		}
+        System.out.println("\nPreorder Traversal");
+        ArrayList<Node> preOrderList = tempTree.traversePreOrder();
+        for (Node i : preOrderList) {
+            System.out.print(i.rootCircle.getSearchKey() + "  ");
+        }
 
-		//Using methods of Generic tree
-		System.out.println();
-//		Node searchNode = tempTree.searchNode(tempTree.root, 7);
-//		System.out.println(searchNode.rootCircle.getSearchKey());
-	}
+        System.out.println("\nPostorder Traversal");
+        ArrayList<Node> postOrderList = tempTree.traversePostOrder();
+        for (Node i : postOrderList) {
+            System.out.print(i.rootCircle.getSearchKey() + "  ");
+        }
+
+        System.out.println();
+
+        //Insert, Search, Traverse => OK
+
+        //Test update node extends from Generic => OK
+        try {
+            ArrayList<Node> listNodes = tempTree.updateValueOfNode(5, 15);
+            System.out.println("Update node 5 -> 15");
+            for (Node index : listNodes) {
+                System.out.print(index.rootCircle.getSearchKey() + "  ");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+        }
+
+        //After updating
+        System.out.println("\nPreorder Traversal");
+        preOrderList = tempTree.traversePreOrder();
+        for (Node i : preOrderList) {
+            System.out.print(i.rootCircle.getSearchKey() + "  ");
+        }
+
+        System.out.println("\nPostorder Traversal");
+        postOrderList = tempTree.traversePostOrder();
+        for (Node i : postOrderList) {
+            System.out.print(i.rootCircle.getSearchKey() + "  ");
+        }
+
+        System.out.println();
+
+        //Test delete
+//        System.out.println("Delete node 2: ");
+//        try {
+//            ArrayList<Node> listNodes = tempTree.deleteNodeBinary(2);
+//            listNodes.forEach(t -> System.out.print(t.rootCircle.getSearchKey() + " "));
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//            System.out.println(e.getStackTrace());
+//        }
+    }
 
 }

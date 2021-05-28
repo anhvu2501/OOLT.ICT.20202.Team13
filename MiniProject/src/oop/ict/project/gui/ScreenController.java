@@ -61,8 +61,8 @@ public class ScreenController {
 	private Stage stage;
 	private Scene scene;
 
-	@FXML
-	void createPressed(ActionEvent event) {
+  @FXML
+  void createPressed(ActionEvent event) {
 
 	}
 
