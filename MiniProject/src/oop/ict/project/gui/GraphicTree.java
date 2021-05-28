@@ -39,45 +39,12 @@ public class GraphicTree extends Canvas {
 	}
 
 	public GraphicTree() throws TreeException {
-		this.genericTree = new GenericTree(new Node(4));
-		this.genericTree.insertNode(4, new Node(2));
-		this.genericTree.insertNode(4, new Node(5));
-		this.genericTree.insertNode(4, new Node(6));
-		this.genericTree.insertNode(5, new Node(7));
-		this.genericTree.insertNode(5, new Node(8));
-		this.genericTree.insertNode(7, new Node(9));
-
+		this.genericTree = new GenericTree();
 		this.binaryTree = new BinaryTree();
 		this.balancedTree = new BalancedTree();
 		this.mainTree = this.genericTree;
 		widthProperty().addListener(evt -> drawTree());
 		heightProperty().addListener(evt -> drawTree());
-	}
-
-	public void draw() {
-		GraphicsContext gc = this.getGraphicsContext2D();
-		Timeline timeline = new Timeline();
-		for (Integer index = 1; index < 4; index++) {
-			final Integer i = index;
-			KeyFrame kf = new KeyFrame(Duration.seconds(i * 2), evt -> {
-				Point2D point = new Point2D(100 * i, 100 * i);
-				gc.setLineWidth(3); // Sets the width of the lines
-				int RADIUS = 20;
-				gc.setFill(Color.rgb(99, 99, 99));
-				gc.fillOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-
-				// Outline the circle border
-				gc.setStroke(Color.rgb(99, 99, 99));
-				gc.strokeOval(point.getX() - RADIUS, point.getY() - RADIUS, 2 * RADIUS, 2 * RADIUS);
-
-				// Draw the id number inside the circle
-				gc.setFont(Font.font("Cooper Black", FontWeight.BOLD, 16));
-				gc.setFill(Color.web("#FCFCFC"));
-				gc.fillText(i.toString(), point.getX() - (16 / 2), point.getY() + (16 / 4));
-			});
-			timeline.getKeyFrames().add(kf);
-		}
-		timeline.play();
 	}
 
 	public void drawTree() {
@@ -110,7 +77,9 @@ public class GraphicTree extends Canvas {
 		linePoint1 = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
 		if (root.getNbChildren() != 0) {
 			for (int i = 0; i < root.getNbChildren(); i++) {
-				linePoint2 = new Point2D((2*minWidth + (2*i+1) * (maxWidth - minWidth) / root.getNbChildren())/2, (3*maxHeight-minHeight)/2);
+				linePoint2 = new Point2D(
+						(2 * minWidth + (2 * i + 1) * (maxWidth - minWidth) / root.getNbChildren()) / 2,
+						(3 * maxHeight - minHeight) / 2);
 				newLine.setPoint(linePoint1, linePoint2);
 				newLine.draw(gc);// Draw the line
 
@@ -121,8 +90,30 @@ public class GraphicTree extends Canvas {
 		}
 	}
 
-	public void highlightSequence(ArrayList<Node> ar) {
+	public void drawHighlightSequence(ArrayList<Node> ar) {
+		GraphicsContext gc = this.getGraphicsContext2D();
+		Timeline timeline = new Timeline();
+		KeyFrame kf = new KeyFrame(Duration.ZERO, evt -> {
+			ar.get(0).rootCircle.setHighlighter(true);
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf);
+		for (Integer index = 1; index < ar.size(); index++) {
+			final Integer i = index;
+			KeyFrame kf1 = new KeyFrame(Duration.seconds(i), evt -> {
+				ar.get(i - 1).rootCircle.setHighlighter(false);
+				ar.get(i).rootCircle.setHighlighter(true);
+				drawTree();
+			});
+			timeline.getKeyFrames().add(kf1);
+		}
 
+		KeyFrame kf2 = new KeyFrame(Duration.seconds(ar.size()), evt -> {
+			ar.get(ar.size() - 1).rootCircle.setHighlighter(false);
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf2);
+		timeline.play();
 	}
 
 	public void clear() {
