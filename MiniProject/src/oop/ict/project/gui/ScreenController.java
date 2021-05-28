@@ -63,7 +63,7 @@ public class ScreenController {
 
     @FXML
     void createPressed(ActionEvent event) {
-
+//    	this.graphicTree.draw();
     }
 
     @FXML
