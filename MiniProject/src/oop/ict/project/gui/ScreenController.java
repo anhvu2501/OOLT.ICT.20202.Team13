@@ -89,4 +89,14 @@ public class ScreenController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    void redoPressed(ActionEvent event) {
+
+    }
+
+    @FXML
+    void undoPressed(ActionEvent event) {
+
+    }
+
 }
