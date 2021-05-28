@@ -11,12 +11,12 @@ public class TestBinaryTree {
 		BinaryTree tempTree = new BinaryTree(new Node(4));
 		Integer rootValue = tempTree.root.rootCircle.getSearchKey();
 		try {
-			Node tempNode = tempTree.insertNode(rootValue, new Node(1));
-			tempNode = tempTree.insertNode(rootValue, new Node(2));
-			tempNode = tempTree.insertNode(1, new Node(14));
-			tempNode = tempTree.insertNode(1, new Node(6));
-			tempNode = tempTree.insertNode(2, new Node(7));
-			tempNode = tempTree.insertNode(2, new Node(5));
+//			Node tempNode = tempTree.insertNode(rootValue, new Node(1));
+//			tempNode = tempTree.insertNode(rootValue, new Node(2));
+//			tempNode = tempTree.insertNode(1, new Node(14));
+//			tempNode = tempTree.insertNode(1, new Node(6));
+//			tempNode = tempTree.insertNode(2, new Node(7));
+//			tempNode = tempTree.insertNode(2, new Node(5));
 //			dong duoi k insert dc do khi insert thi so children se >2
 //			tempNode = tempTree.insertNode(2, new Node(3));
 		} catch (Exception e) {
@@ -47,8 +47,8 @@ public class TestBinaryTree {
 
 		//Using methods of Generic tree
 		System.out.println();
-		Node searchNode = tempTree.searchNode(tempTree.root, 7);
-		System.out.println(searchNode.rootCircle.getSearchKey());
+//		Node searchNode = tempTree.searchNode(tempTree.root, 7);
+//		System.out.println(searchNode.rootCircle.getSearchKey());
 	}
 
 }

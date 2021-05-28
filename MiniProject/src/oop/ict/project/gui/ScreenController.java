@@ -10,27 +10,43 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import oop.ict.project.tree.exception.TreeException;
+
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ScreenController implements Initializable {
+public class ScreenController {
 
     @FXML
     private TextField inputNodeKey;
 
     @FXML
     private Label currentTreeName;
+    
+    @FXML
+    private BorderPane screenContainer;
 
     public static Label staticLabel;
 
     private GraphicTree graphicTree;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void initialize() {
         staticLabel = currentTreeName;
+     	try {
+			graphicTree = new GraphicTree();
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     	screenContainer.setCenter(graphicTree);
+     	
+     	graphicTree.widthProperty().bind(screenContainer.widthProperty());
+     	graphicTree.heightProperty().bind(screenContainer.heightProperty());
+
     }
 
     public Label getCurrentTreeName() {
@@ -88,6 +104,7 @@ public class ScreenController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
 
     @FXML
     void redoPressed(ActionEvent event) {

@@ -23,23 +23,23 @@ public class BinaryTree extends GenericTree {
         super(rootValue);
     }
 
-    @Override
-    public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
-        boolean isParentInTree = isInTree(root, parentValue);
-        if (isParentInTree) {
-            Node foundParentNode = searchNode(root, parentValue);
-            if (foundParentNode.getNbChildren() < this.MAX_NB_CHILDREN) {
-                newNode.setDepth(foundParentNode.getDepth() + 1);
-                foundParentNode.children.add(newNode);
-                return newNode;
-            } else {
-                throw new TreeException("Cannot insert! Binary tree can only has maximum 2 children per node");
-            }
-
-        } else {
-            throw new TreeException("Cannot find node with value " + parentValue);
-        }
-    }
+//    @Override
+//    public Node insertNode(Integer parentValue, Node newNode) throws TreeException {
+//        boolean isParentInTree = isInTree(root, parentValue);
+//        if (isParentInTree) {
+//            Node foundParentNode = searchNode(root, parentValue);
+//            if (foundParentNode.getNbChildren() < this.MAX_NB_CHILDREN) {
+//                newNode.setDepth(foundParentNode.getDepth() + 1);
+//                foundParentNode.children.add(newNode);
+//                return newNode;
+//            } else {
+//                throw new TreeException("Cannot insert! Binary tree can only has maximum 2 children per node");
+//            }
+//
+//        } else {
+//            throw new TreeException("Cannot find node with value " + parentValue);
+//        }
+//    }
 
     public void deleteDeepest(Node root, Node delNodeBinary) {
         Queue<Node> q = new LinkedList<>();
