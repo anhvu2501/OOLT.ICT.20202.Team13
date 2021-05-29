@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 import oop.ict.project.tree.balanced.BalancedTree;
+import oop.ict.project.tree.balancedbinary.BalancedBinaryTree;
 import oop.ict.project.tree.binary.BinaryTree;
 import oop.ict.project.tree.exception.TreeException;
 import oop.ict.project.tree.generic.GenericTree;
@@ -23,7 +24,7 @@ public class GraphicTree extends Canvas {
 	private GenericTree genericTree; // type1
 	private BinaryTree binaryTree; // type2
 	private BalancedTree balancedTree; // type3
-//	private BalancedBinaryTree balancedBinaryTree; // type4
+	private BalancedBinaryTree balancedBinaryTree; // type4
 	private GenericTree mainTree;
 	private static final int numberLayer = 8;
 	private ArrayList<Node> nodeList;
@@ -35,6 +36,8 @@ public class GraphicTree extends Canvas {
 			this.mainTree = this.binaryTree;
 		} else if (type == 3) {
 			this.mainTree = this.balancedTree;
+		} else {
+			this.mainTree = this.balancedBinaryTree;
 		}
 	}
 
@@ -42,6 +45,7 @@ public class GraphicTree extends Canvas {
 		this.genericTree = new GenericTree();
 		this.binaryTree = new BinaryTree();
 		this.balancedTree = new BalancedTree();
+		this.balancedBinaryTree = new BalancedBinaryTree();
 		this.mainTree = this.genericTree;
 		widthProperty().addListener(evt -> drawTree());
 		heightProperty().addListener(evt -> drawTree());
