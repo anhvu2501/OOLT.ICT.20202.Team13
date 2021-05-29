@@ -20,99 +20,99 @@ import java.util.ResourceBundle;
 
 public class ScreenController {
 
-	@FXML
-	private TextField inputNodeKey;
+    @FXML
+    private TextField inputNodeKey;
 
-	@FXML
-	private Label currentTreeName;
+    @FXML
+    private Label currentTreeName;
 
-	@FXML
-	private BorderPane screenContainer;
+    @FXML
+    private BorderPane screenContainer;
 
-	public static Label staticLabel;
+    public static Label staticLabel;
 
-	private GraphicTree graphicTree;
+    private GraphicTree graphicTree;
 
-	public void initialize() {
-		staticLabel = currentTreeName;
-		try {
-			if (graphicTree == null) {
-				graphicTree = new GraphicTree();
-			}
-		} catch (TreeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		screenContainer.setCenter(graphicTree);
+    public void initialize() {
+        staticLabel = currentTreeName;
+        try {
+            if (graphicTree == null) {
+                graphicTree = new GraphicTree();
+            }
+        } catch (TreeException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        screenContainer.setCenter(graphicTree);
 
-		graphicTree.widthProperty().bind(screenContainer.widthProperty());
-		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+        graphicTree.widthProperty().bind(screenContainer.widthProperty());
+        graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
-	}
+    }
 
-	public Label getCurrentTreeName() {
-		return currentTreeName;
-	}
+    public Label getCurrentTreeName() {
+        return currentTreeName;
+    }
 
-	public void setCurrentTreeName(Label currentTreeName) {
-		this.currentTreeName = currentTreeName;
-	}
+    public void setCurrentTreeName(Label currentTreeName) {
+        this.currentTreeName = currentTreeName;
+    }
 
-	private Stage stage;
-	private Scene scene;
+    private Stage stage;
+    private Scene scene;
 
-  @FXML
-  void createPressed(ActionEvent event) {
+    @FXML
+    void createPressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void insertPressed(ActionEvent event) {
+    @FXML
+    void insertPressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void deletePressed(ActionEvent event) {
+    @FXML
+    void deletePressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void updatePressed(ActionEvent event) {
+    @FXML
+    void updatePressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void searchPressed(ActionEvent event) {
+    @FXML
+    void searchPressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void preorderPressed(ActionEvent event) {
+    @FXML
+    void preorderPressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void postorderPressed(ActionEvent event) {
+    @FXML
+    void postorderPressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void backPressed(ActionEvent event) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("ScreenMenu.fxml"));
-		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-		scene = new Scene(root);
-		stage.setScene(scene);
-		stage.show();
-	}
+    @FXML
+    void backPressed(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("ScreenMenu.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
-	@FXML
-	void redoPressed(ActionEvent event) {
+    @FXML
+    void redoPressed(ActionEvent event) {
 
-	}
+    }
 
-	@FXML
-	void undoPressed(ActionEvent event) {
+    @FXML
+    void undoPressed(ActionEvent event) {
 
-	}
+    }
 
 }
