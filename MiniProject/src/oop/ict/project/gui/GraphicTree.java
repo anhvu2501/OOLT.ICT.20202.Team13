@@ -40,13 +40,33 @@ public class GraphicTree extends Canvas {
 			this.mainTree = this.balancedBinaryTree;
 		}
 	}
+	
+	public void setLimit(Integer limit, Integer type) {
+		if(type==3) {
+			this.balancedTree.setLimitDistance(limit);
+		}else {
+			this.balancedBinaryTree.setLimitDistance(limit);
+		}
+	}
+	
+	public void createEmptyTree(Integer type) {
+		if (type == 1) {
+			this.genericTree = new GenericTree();
+		} else if (type == 2) {
+			this.binaryTree = new BinaryTree();
+		} else if (type == 3) {
+			this.balancedTree = new BalancedTree();
+		} else {
+			this.balancedBinaryTree = new BalancedBinaryTree();
+		}
+	}
 
 	public GraphicTree() throws TreeException {
 		this.genericTree = new GenericTree();
 		this.binaryTree = new BinaryTree();
 		this.balancedTree = new BalancedTree();
 		this.balancedBinaryTree = new BalancedBinaryTree();
-		this.mainTree = this.genericTree;
+		this.mainTree = new GenericTree();
 		widthProperty().addListener(evt -> drawTree());
 		heightProperty().addListener(evt -> drawTree());
 	}

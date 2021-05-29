@@ -10,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
+import oop.ict.project.tree.exception.TreeException;
 
 import java.io.IOException;
 
@@ -27,11 +28,29 @@ public class ScreenMenuController {
 
     private GraphicTree graphicTree;
 
+    public void initialize() {
+    	try {
+			graphicTree = new GraphicTree();
+		} catch (TreeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    public void transferData(GraphicTree tree) {
+		this.graphicTree=tree;
+	}
+    
     @FXML
     void selectBalancedBinaryTree(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLGraphicTree.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        ScreenController controller = loader.getController();
+        controller.transferData(this.graphicTree);
+        controller.switchTree(4);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
         staticLabel.setText("Balanced Binary Tree");
         stage.setScene(scene);
         stage.show();
@@ -39,9 +58,15 @@ public class ScreenMenuController {
 
     @FXML
     void selectBalancedTree(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLGraphicTree.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        ScreenController controller = loader.getController();
+        controller.transferData(this.graphicTree);
+        controller.switchTree(3);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
         staticLabel.setText("Balanced Tree");
         stage.setScene(scene);
         stage.show();
@@ -49,9 +74,15 @@ public class ScreenMenuController {
 
     @FXML
     void selectBinaryTree(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLGraphicTree.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        ScreenController controller = loader.getController();
+        controller.transferData(this.graphicTree);
+        controller.switchTree(2);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
         staticLabel.setText("Binary Tree");
         stage.setScene(scene);
         stage.show();
@@ -59,9 +90,15 @@ public class ScreenMenuController {
 
     @FXML
     void selectGenericTree(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLGraphicTree.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+    	FXMLLoader loader = new FXMLLoader();
+    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        ScreenController controller = loader.getController();
+        controller.transferData(this.graphicTree);
+        controller.switchTree(1);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        
         staticLabel.setText("Generic Tree");
         stage.setScene(scene);
         stage.show();
