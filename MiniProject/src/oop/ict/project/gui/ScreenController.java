@@ -28,18 +28,18 @@ import java.util.ResourceBundle;
 
 public class ScreenController {
 
-	@FXML
-	private TextField inputNodeKey;
+    @FXML
+    private TextField inputNodeKey;
 
-	@FXML
-	private Label currentTreeName;
+    @FXML
+    private Label currentTreeName;
 
-	@FXML
-	private BorderPane screenContainer;
+    @FXML
+    private BorderPane screenContainer;
 
-	public static Label staticLabel;
+    public static Label staticLabel;
 
-	private GraphicTree graphicTree;
+    private GraphicTree graphicTree;
 
 	public void initialize() {
 		staticLabel = currentTreeName;
@@ -51,18 +51,19 @@ public class ScreenController {
 		}
 		screenContainer.setCenter(graphicTree);
 
-		graphicTree.widthProperty().bind(screenContainer.widthProperty());
-		graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
-	}
+        graphicTree.widthProperty().bind(screenContainer.widthProperty());
+        graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
-	public Label getCurrentTreeName() {
-		return currentTreeName;
-	}
+    }
 
-	public void setCurrentTreeName(Label currentTreeName) {
-		this.currentTreeName = currentTreeName;
-	}
+    public Label getCurrentTreeName() {
+        return currentTreeName;
+    }
+
+    public void setCurrentTreeName(Label currentTreeName) {
+        this.currentTreeName = currentTreeName;
+    }
 
 	public void transferData(GraphicTree tree) {
 		this.graphicTree = tree;
@@ -143,35 +144,36 @@ public class ScreenController {
 		}
 	}
 
-	@FXML
-	void insertPressed(ActionEvent event) {
 
-	}
+    @FXML
+    void insertPressed(ActionEvent event) {
 
-	@FXML
-	void deletePressed(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void deletePressed(ActionEvent event) {
 
-	@FXML
-	void updatePressed(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void updatePressed(ActionEvent event) {
 
-	@FXML
-	void searchPressed(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void searchPressed(ActionEvent event) {
 
-	@FXML
-	void preorderPressed(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void preorderPressed(ActionEvent event) {
 
-	@FXML
-	void postorderPressed(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void postorderPressed(ActionEvent event) {
+
+    }
 
 	@FXML
 	void backPressed(ActionEvent event) throws IOException {
@@ -187,14 +189,15 @@ public class ScreenController {
 		stage.show();
 	}
 
-	@FXML
-	void redoPressed(ActionEvent event) {
 
-	}
+    @FXML
+    void redoPressed(ActionEvent event) {
 
-	@FXML
-	void undoPressed(ActionEvent event) {
+    }
 
-	}
+    @FXML
+    void undoPressed(ActionEvent event) {
+
+    }
 
 }

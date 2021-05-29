@@ -59,15 +59,19 @@ public class BalancedBinaryTree extends BinaryTree {
                 ArrayList<Node> searchParentNodeList = new ArrayList<>();
                 searchParentNodeList.add(root);
                 ArrayList<Node> searchNodeList = searchNode(searchParentNodeList, parentValue);
-                if (searchNodeList.get(searchNodeList.size() - 1).getDepth() + 1 - this.minLeafDepth <=
-                        this.limitDistance && searchNodeList.get(searchNodeList.size() - 1).children.size()
-                        < this.MAX_NB_CHILDREN) {
+                if (searchNodeList.get(searchNodeList.size() - 1).children.size() < this.MAX_NB_CHILDREN) {
                     newNode.setDepth(searchNodeList.get(searchNodeList.size() - 1).getDepth() + 1);
                     searchNodeList.get(searchNodeList.size() - 1).addChild(newNode);
                 } else
-                    throw new TreeException("Only can input max 2 nodes or this node makes tree unbalanced");
+                    throw new TreeException("Only can input max 2 nodes");
                 searchNodeList.add(newNode);
-                return searchNodeList;
+                this.updateMaxMin(this.root);
+                if (this.maxLeafDepth - this.minLeafDepth > this.limitDistance) {
+                    searchNodeList.get(searchNodeList.size() - 2).children.remove(newNode);
+                    this.updateMaxMin(this.root);
+                    throw new TreeException("The node inserted makes the tree unbalanced");
+                } else
+                    return searchNodeList;
             } else
                 throw new TreeException("Cannot find node with value " + parentValue);
         } else
@@ -94,5 +98,16 @@ public class BalancedBinaryTree extends BinaryTree {
         }
         for (Node child : root.children)
             updateMaxMin(child);
+    }
+
+    public void updateDepth(Node root) {
+        if (root == this.root) {
+            this.root.setDepth(1);
+        }
+        for (Node child : root.children) {
+            child.setDepth(root.getDepth() + 1);
+            updateDepth(child);
+        }
+
     }
 }
