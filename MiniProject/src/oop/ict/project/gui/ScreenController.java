@@ -28,18 +28,18 @@ import java.util.ResourceBundle;
 
 public class ScreenController {
 
-    @FXML
-    private TextField inputNodeKey;
+	@FXML
+	private TextField inputNodeKey;
 
-    @FXML
-    private Label currentTreeName;
+	@FXML
+	private Label currentTreeName;
 
-    @FXML
-    private BorderPane screenContainer;
+	@FXML
+	private BorderPane screenContainer;
 
-    public static Label staticLabel;
+	public static Label staticLabel;
 
-    private GraphicTree graphicTree;
+	private GraphicTree graphicTree;
 
 	public void initialize() {
 		staticLabel = currentTreeName;
@@ -51,19 +51,18 @@ public class ScreenController {
 		}
 		screenContainer.setCenter(graphicTree);
 
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
-        graphicTree.widthProperty().bind(screenContainer.widthProperty());
-        graphicTree.heightProperty().bind(screenContainer.heightProperty());
+	}
 
-    }
+	public Label getCurrentTreeName() {
+		return currentTreeName;
+	}
 
-    public Label getCurrentTreeName() {
-        return currentTreeName;
-    }
-
-    public void setCurrentTreeName(Label currentTreeName) {
-        this.currentTreeName = currentTreeName;
-    }
+	public void setCurrentTreeName(Label currentTreeName) {
+		this.currentTreeName = currentTreeName;
+	}
 
 	public void transferData(GraphicTree tree) {
 		this.graphicTree = tree;
@@ -79,12 +78,14 @@ public class ScreenController {
 
 	@FXML
 	void createPressed(ActionEvent event) {
-		Alert success = new Alert(AlertType.INFORMATION, "Successfully create a new empty tree!",
-				ButtonType.OK);
+		screenContainer.setCenter(graphicTree);
+
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		Alert success = new Alert(AlertType.INFORMATION, "Successfully create a new empty tree!", ButtonType.OK);
 		success.setTitle("");
 		success.setHeaderText("");
-		Alert fail = new Alert(AlertType.INFORMATION, "Please input a POSITIVE INTEGER!",
-				ButtonType.OK);
+		Alert fail = new Alert(AlertType.INFORMATION, "Please input a POSITIVE INTEGER!", ButtonType.OK);
 		fail.setTitle("Error");
 		fail.setHeaderText("");
 		if (staticLabel.getText() == "Generic Tree") {
@@ -102,7 +103,7 @@ public class ScreenController {
 			EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent evt) {
 					try {
-						Integer temp = Integer.parseInt(td.getEditor().getText());
+						Integer temp = Integer.parseInt(td.getEditor().getText().trim());
 						if (temp > 0) {
 							graphicTree.createEmptyTree(3);
 							graphicTree.setLimit(temp, 3);
@@ -125,7 +126,7 @@ public class ScreenController {
 			EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent evt) {
 					try {
-						Integer temp = Integer.parseInt(td.getEditor().getText());
+						Integer temp = Integer.parseInt(td.getEditor().getText().trim());
 						if (temp > 0) {
 							graphicTree.createEmptyTree(4);
 							graphicTree.setLimit(temp, 4);
@@ -144,36 +145,88 @@ public class ScreenController {
 		}
 	}
 
+	@FXML
+	void insertPressed(ActionEvent event) {
+		screenContainer.setCenter(graphicTree);
 
-    @FXML
-    void insertPressed(ActionEvent event) {
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		if (graphicTree.isEmptyForBalanced()) {
+			Alert er1 = new Alert(AlertType.INFORMATION, "You must create a tree and set the limit first", ButtonType.OK);
+			er1.setTitle("Error");
+			er1.setHeaderText("");
+			er1.show();
+		} else {
+			try {
+				Integer num = Integer.parseInt(this.inputNodeKey.getText().trim());
+				if (graphicTree.isEmpty()) {
+					graphicTree.setRoot(num);
+					return;
+				}
+				TextInputDialog td = new TextInputDialog();
+				td.setHeaderText("Input the parent node's key you want to insert into");
+				Button okButton = (Button) td.getDialogPane().lookupButton(ButtonType.OK);
+				EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
+					public void handle(ActionEvent evt) {
+						try {
+							Integer temp = Integer.parseInt(td.getEditor().getText().trim());
+							graphicTree.insert(temp, num);
+						} catch (TreeException e) {
+							Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+							er2.setTitle("Error");
+							er2.setHeaderText("");
+							er2.show();
+						} catch (NumberFormatException e2) {
+							Alert er1 = new Alert(AlertType.INFORMATION, "Key must be an INTEGER!", ButtonType.OK);
+							er1.setTitle("Error");
+							er1.setHeaderText("");
+							er1.show();
+						}
+					}
+				};
+				okButton.setOnAction(event1);
+				td.showAndWait();
+			} catch (NumberFormatException e1) {
+				Alert er1 = new Alert(AlertType.INFORMATION, "Key must be an INTEGER!", ButtonType.OK);
+				er1.setTitle("Error");
+				er1.setHeaderText("");
+				er1.show();
+			}
+		}
+	}
 
-    }
+	public void restoreDraw() {
+		screenContainer.setCenter(graphicTree);
 
-    @FXML
-    void deletePressed(ActionEvent event) {
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		graphicTree.drawTree();
+	}
 
-    }
+	@FXML
+	void deletePressed(ActionEvent event) {
 
-    @FXML
-    void updatePressed(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void updatePressed(ActionEvent event) {
 
-    @FXML
-    void searchPressed(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void searchPressed(ActionEvent event) {
 
-    @FXML
-    void preorderPressed(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void preorderPressed(ActionEvent event) {
 
-    @FXML
-    void postorderPressed(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void postorderPressed(ActionEvent event) {
+
+	}
 
 	@FXML
 	void backPressed(ActionEvent event) throws IOException {
@@ -189,15 +242,14 @@ public class ScreenController {
 		stage.show();
 	}
 
+	@FXML
+	void redoPressed(ActionEvent event) {
 
-    @FXML
-    void redoPressed(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void undoPressed(ActionEvent event) {
 
-    @FXML
-    void undoPressed(ActionEvent event) {
-
-    }
+	}
 
 }
