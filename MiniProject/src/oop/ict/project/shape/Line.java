@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 
 public final class Line {
 	
-	private static final Color UI_DEFAULT_COLOR = Color.rgb(99, 99, 99);
+	private static final Color UI_DEFAULT_COLOR = Color.rgb(0, 0, 104);
 	
 	// The circle attributes
 	private Point2D point, point2;
