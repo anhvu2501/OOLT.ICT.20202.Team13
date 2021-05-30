@@ -29,21 +29,22 @@ public class ScreenMenuController {
     private GraphicTree graphicTree;
 
     public void initialize() {
-    	try {
-			graphicTree = new GraphicTree();
-		} catch (TreeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        try {
+            graphicTree = new GraphicTree();
+        } catch (TreeException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
+
     public void transferData(GraphicTree tree) {
-		this.graphicTree=tree;
-	}
-    
+        this.graphicTree = tree;
+    }
+
     @FXML
     void selectBalancedBinaryTree(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         ScreenController controller = loader.getController();
@@ -58,8 +59,8 @@ public class ScreenMenuController {
 
     @FXML
     void selectBalancedTree(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         ScreenController controller = loader.getController();
@@ -74,8 +75,8 @@ public class ScreenMenuController {
 
     @FXML
     void selectBinaryTree(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         ScreenController controller = loader.getController();
@@ -90,8 +91,8 @@ public class ScreenMenuController {
 
     @FXML
     void selectGenericTree(ActionEvent event) throws IOException {
-    	FXMLLoader loader = new FXMLLoader();
-    	loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         ScreenController controller = loader.getController();
@@ -125,9 +126,6 @@ public class ScreenMenuController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to quit?", ButtonType.OK, ButtonType.CANCEL);
         alert.setTitle("Exit");
         alert.setHeaderText("");
-//        alert.showAndWait()
-//                .filter(response -> response == ButtonType.OK)
-//                .ifPresent(response -> alert.close());
         if (alert.showAndWait().get() == ButtonType.OK) {
             stage.close();
         } else {

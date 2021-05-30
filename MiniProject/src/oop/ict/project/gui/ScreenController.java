@@ -4,30 +4,18 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import oop.ict.project.tree.exception.TreeException;
 
-import static oop.ict.project.gui.ScreenController.staticLabel;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class ScreenController {
-
 	@FXML
 	private TextField inputNodeKey;
 
@@ -247,14 +235,41 @@ public class ScreenController {
 	}
 
 	@FXML
-	void preorderPressed(ActionEvent event) {
+    void preorderPressed(ActionEvent event) {
+        screenContainer.setCenter(graphicTree);
 
-	}
+        graphicTree.widthProperty().bind(screenContainer.widthProperty());
+        graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
-	@FXML
-	void postorderPressed(ActionEvent event) {
+        try {
+            graphicTree.preorderList();
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error!!");
+            alert.setHeaderText("");
+            alert.setContentText("The tree is empty");
+            alert.showAndWait();
+        }
+    }
 
-	}
+    @FXML
+    void postorderPressed(ActionEvent event) {
+        screenContainer.setCenter(graphicTree);
+
+        graphicTree.widthProperty().bind(screenContainer.widthProperty());
+        graphicTree.heightProperty().bind(screenContainer.heightProperty());
+
+        try {
+            graphicTree.postorderList();
+        } catch (Exception e) {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Error!!");
+            alert.setHeaderText("");
+            alert.setContentText("The tree is empty");
+            alert.showAndWait();
+        }
+
+    }
 
 	@FXML
 	void backPressed(ActionEvent event) throws IOException {
@@ -279,5 +294,4 @@ public class ScreenController {
 	void undoPressed(ActionEvent event) {
 
 	}
-
 }

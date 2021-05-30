@@ -229,5 +229,16 @@ public class GraphicTree extends Canvas {
 	public void clear() {
 		getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());
 	}
+    public void preorderList() {
+        nodeList.clear();
+        nodeList = this.mainTree.traversePreOrder();
+        this.drawHighlightSequence(nodeList);
+    }
+
+    public void postorderList() {
+        nodeList.clear();
+        nodeList = this.mainTree.traversePostOrder();
+        this.drawHighlightSequence(nodeList);
+    }
 
 }
