@@ -148,16 +148,5 @@ public class BalancedTree extends GenericTree {
 		for (Node child : root.children)
 			updateMaxMin(child);
 	}
-	
-	public void updateDepth(Node root) {
-		if(root==this.root) {
-			this.root.setDepth(1);
-		}
-		for (Node child : root.children) {
-			child.setDepth(root.getDepth()+1);
-			updateDepth(child);
-		}
-		
-	}
 
 }

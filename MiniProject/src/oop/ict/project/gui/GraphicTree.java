@@ -29,7 +29,7 @@ public class GraphicTree extends Canvas {
 	private BalancedTree balancedTree; // type3
 	private BalancedBinaryTree balancedBinaryTree; // type4
 	private GenericTree mainTree;
-	private static final int numberLayer = 8;
+	private static final Integer numberLayer = 8;
 	private ArrayList<Node> nodeList = new ArrayList<Node>();
 
 	public void switchTree(Integer type) {
@@ -130,7 +130,7 @@ public class GraphicTree extends Canvas {
 		timeline.getKeyFrames().add(kf);
 		for (Integer index = 1; index < ar.size(); index++) {
 			final Integer i = index;
-			KeyFrame kf1 = new KeyFrame(Duration.millis(500*i), evt -> {
+			KeyFrame kf1 = new KeyFrame(Duration.millis(500 * i), evt -> {
 				ar.get(i - 1).rootCircle.setHighlighter(false);
 				ar.get(i).rootCircle.setHighlighter(true);
 				drawTree();
@@ -138,7 +138,7 @@ public class GraphicTree extends Canvas {
 			timeline.getKeyFrames().add(kf1);
 		}
 
-		KeyFrame kf2 = new KeyFrame(Duration.millis(ar.size()*500), evt -> {
+		KeyFrame kf2 = new KeyFrame(Duration.millis(ar.size() * 500), evt -> {
 			ar.get(ar.size() - 1).rootCircle.setHighlighter(false);
 			drawTree();
 		});
@@ -152,27 +152,55 @@ public class GraphicTree extends Canvas {
 		nodeList = this.mainTree.searchNode(nodeList, parentValue);
 		this.drawHighlightSequence(nodeList);
 		final int numTime = nodeList.size(); // so lan de chay xong search
+		System.out.println(nodeList.get(nodeList.size() - 1).getDepth());
+		if (nodeList.get(nodeList.size() - 1).getDepth() == 8) {
+			Alert er2 = new Alert(AlertType.INFORMATION, "The maximum tree's depth of this program is "
+					+ this.numberLayer.toString() +"! You cannot insert more", ButtonType.OK);
+			er2.setTitle("Error");
+			er2.setHeaderText("");
+			er2.show();
+		} else {
+			GraphicsContext gc = this.getGraphicsContext2D();
+			Timeline timeline = new Timeline();
+			KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
+				try {
+					nodeList = this.mainTree.insertNode(parentValue, new Node(keyValue));
+				} catch (TreeException e) {
+					Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+					er2.setTitle("Error");
+					er2.setHeaderText("");
+					er2.show();
+				}
+				nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(true);
+				drawTree();
+			});
+			timeline.getKeyFrames().add(kf);
+			KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + 1)), evt -> {
+				nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(false);
+				drawTree();
+			});
+			timeline.getKeyFrames().add(kf1);
+			timeline.play();
+		}
+	}
 
+	public void search(Integer searchValue) {
+		nodeList.clear();
+		nodeList.add(this.mainTree.root);
+		nodeList = this.mainTree.searchNode(nodeList, searchValue);
+		final int numTime = nodeList.size(); // so lan de chay xong search
+		this.drawHighlightSequence(nodeList);
 		GraphicsContext gc = this.getGraphicsContext2D();
 		Timeline timeline = new Timeline();
-		KeyFrame kf = new KeyFrame(Duration.millis(500*numTime), evt -> {
-			try {
-				nodeList = this.mainTree.insertNode(parentValue, new Node(keyValue));
-			} catch (TreeException e) {
-				Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+		KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
+			if (nodeList.get(nodeList.size() - 1).rootCircle.getSearchKey() != searchValue) {
+				Alert er2 = new Alert(AlertType.INFORMATION, "Cannot find the node with inserted key", ButtonType.OK);
 				er2.setTitle("Error");
 				er2.setHeaderText("");
 				er2.show();
 			}
-			nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(true);
-			drawTree();
 		});
 		timeline.getKeyFrames().add(kf);
-		KeyFrame kf1 = new KeyFrame(Duration.millis(500*(numTime + 1)), evt -> {
-			nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(false);
-			drawTree();
-		});
-		timeline.getKeyFrames().add(kf1);
 		timeline.play();
 	}
 
@@ -182,16 +210,19 @@ public class GraphicTree extends Canvas {
 		}
 		return false;
 	}
-	
+
 	public boolean isEmptyForBalanced() {
-		if(this.mainTree.root==null && ((this.balancedTree.getLimitDistance()==1&&this.mainTree==this.balancedTree)||
-				(this.balancedBinaryTree.getLimitDistance()==1&&this.mainTree==this.balancedBinaryTree)))
+		if (this.mainTree.root == null && ((this.balancedTree.getLimitDistance() == 1
+				&& this.mainTree == this.balancedTree)
+				|| (this.balancedBinaryTree.getLimitDistance() == 1 && this.mainTree == this.balancedBinaryTree)))
 			return true;
 		return false;
 	}
 
 	public void setRoot(Integer key) {
-		this.mainTree.root = new Node(key);
+		Node temp = new Node(key);
+		temp.setDepth(1);
+		this.mainTree.root = temp;
 		this.drawTree();
 	}
 

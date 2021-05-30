@@ -38,13 +38,14 @@ public class GenericTree {
 				ArrayList<Node> searchNodeList = searchNode(searchParentNodeList, parentValue);
 				searchNodeList.get(searchNodeList.size() - 1).addChild(newNode);
 				searchNodeList.add(newNode);
+				this.updateDepth(this.root);
 				return searchNodeList;
 			} else {
 				throw new TreeException("Cannot find node with value " + parentValue);
 			}
 		} else {
 			throw new TreeException(
-					"Node with value " + newNode.rootCircle.getSearchKey() + "already exists in the tree.");
+					"Node with value " + newNode.rootCircle.getSearchKey() + " already exists in the tree.");
 		}
 	}
 
@@ -203,6 +204,16 @@ public class GenericTree {
 		}
 
 		return listNodes; // ????
+	}
+	
+	public void updateDepth(Node root) {
+		if(root==this.root) {
+			this.root.setDepth(1);
+		}
+		for (Node child : root.children) {
+			child.setDepth(root.getDepth()+1);
+			updateDepth(child);
+		}
 	}
 
 }

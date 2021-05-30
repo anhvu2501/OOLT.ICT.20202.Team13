@@ -152,7 +152,8 @@ public class ScreenController {
 		graphicTree.widthProperty().bind(screenContainer.widthProperty());
 		graphicTree.heightProperty().bind(screenContainer.heightProperty());
 		if (graphicTree.isEmptyForBalanced()) {
-			Alert er1 = new Alert(AlertType.INFORMATION, "You must create a tree and set the limit first", ButtonType.OK);
+			Alert er1 = new Alert(AlertType.INFORMATION, "You must create a tree and set the limit first",
+					ButtonType.OK);
 			er1.setTitle("Error");
 			er1.setHeaderText("");
 			er1.show();
@@ -215,7 +216,34 @@ public class ScreenController {
 
 	@FXML
 	void searchPressed(ActionEvent event) {
+		screenContainer.setCenter(graphicTree);
 
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		if (graphicTree.isEmptyForBalanced()) {
+			Alert er1 = new Alert(AlertType.INFORMATION, "You must create a tree and set the limit first",
+					ButtonType.OK);
+			er1.setTitle("Error");
+			er1.setHeaderText("");
+			er1.show();
+		} else {
+			if (graphicTree.isEmpty()) {
+				Alert er1 = new Alert(AlertType.INFORMATION, "The tree is empty now!", ButtonType.OK);
+				er1.setTitle("Error");
+				er1.setHeaderText("");
+				er1.show();
+			} else {
+				try {
+					Integer num = Integer.parseInt(this.inputNodeKey.getText().trim());
+					graphicTree.search(num);
+				} catch (NumberFormatException e1) {
+					Alert er1 = new Alert(AlertType.INFORMATION, "Key must be an INTEGER!", ButtonType.OK);
+					er1.setTitle("Error");
+					er1.setHeaderText("");
+					er1.show();
+				}
+			}
+		}
 	}
 
 	@FXML
