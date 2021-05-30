@@ -107,12 +107,12 @@ public class ScreenMenuController {
     void selectHelpMenu(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,
                 "Aims: Visualization of Tree Data Structures" +
-                        "\n\nHow to visualize a tree:\n " +
+                        "\n\nHow to visualize a tree:\n" +
                         "Step 1: Choose your type of tree\n" +
                         "Step 2: Choose operations\n" +
-                        "Step 2: Wait and enjoy your work\n", ButtonType.OK);
+                        "Step 3: Wait and enjoy your work\n", ButtonType.OK);
         alert.setTitle("Help Menu");
-        alert.setHeaderText("Orientation: ");
+        alert.setHeaderText("Orientation");
         alert.showAndWait()
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> alert.close());
@@ -130,4 +130,3 @@ public class ScreenMenuController {
         }
     }
 }
-

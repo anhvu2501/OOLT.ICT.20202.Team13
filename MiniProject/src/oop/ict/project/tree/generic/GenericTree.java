@@ -76,12 +76,12 @@ public class GenericTree {
 				foundDeleteNodeList.add(root);
 				foundDeleteNodeList = searchNode(foundDeleteNodeList, value);
 				Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
+				Node parentNode = getParentNode(root, value);
 				foundDeleteNodeList.remove(foundNode);
-				if (foundNode.children == null) {
-					foundNode = null;
+				if (foundNode.children.size() == 0) {
+					parentNode.children.remove(foundNode);
 					return foundDeleteNodeList;
 				} else {
-					Node parentNode = getParentNode(root, value);
 					Integer indexOfDeteleNode = parentNode.children.indexOf(foundNode);
 					for (int i = 0; i < foundNode.children.size(); i++) {
 						parentNode.children.add(indexOfDeteleNode + i, foundNode.children.get(i));
@@ -163,20 +163,6 @@ public class GenericTree {
 		return postOrderList;
 	}
 
-	// for testing only
-	public void traverseTree(Node rootNode) {
-		System.out.println("Node Pre " + rootNode.rootCircle.getSearchKey());
-		for (Node child : rootNode.children) {
-			System.out
-					.println("Edge Pre " + rootNode.rootCircle.getSearchKey() + "--" + child.rootCircle.getSearchKey());
-			traverseTree(child);
-			System.out.println(
-					"Edge Post " + rootNode.rootCircle.getSearchKey() + "--" + child.rootCircle.getSearchKey());
-
-		}
-		System.out.println("Node Post " + rootNode.rootCircle.getSearchKey());
-	}
-
 	public boolean isInTree(Node node, Integer key) {
 		if (node.rootCircle.getSearchKey() == key) {
 			return true;
@@ -203,7 +189,7 @@ public class GenericTree {
 			}
 		}
 
-		return listNodes; // ????
+		return listNodes;
 	}
 	
 	public void updateDepth(Node root) {

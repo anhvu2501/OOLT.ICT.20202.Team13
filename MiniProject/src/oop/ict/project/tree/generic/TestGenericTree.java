@@ -42,8 +42,6 @@ public class TestGenericTree {
 			System.out.println(e.getStackTrace());
 		}
 
-		// tempTree.traverseTree(tempTree.root);
-
 		System.out.println("\nPreorder Traversal");
 		ArrayList<Node> preOrderList = tempTree.traversePreOrder();
 		for (Node i : preOrderList) {

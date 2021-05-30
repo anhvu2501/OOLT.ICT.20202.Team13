@@ -66,7 +66,7 @@ public class BalancedTree extends GenericTree {
 				if (this.maxLeafDepth - this.minLeafDepth > this.limitDistance) {
 					searchNodeList.get(searchNodeList.size()-2).children.remove(newNode);
 					this.updateMaxMin(this.root);
-					throw new TreeException("Cannot insert because the new node make the tree imbalance");
+					throw new TreeException("Cannot insert because the new node makes the tree become imbalanced.");
 				} else {
 					return searchNodeList;
 				}

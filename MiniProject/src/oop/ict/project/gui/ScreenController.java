@@ -70,6 +70,15 @@ public class ScreenController {
 
 		graphicTree.widthProperty().bind(screenContainer.widthProperty());
 		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		
+		if(!graphicTree.isEmpty()) {
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to create new tree? This will delete the old tree.", ButtonType.OK, ButtonType.CANCEL);
+	        alert.setTitle("Exit");
+	        alert.setHeaderText("");
+	        if (alert.showAndWait().get() != ButtonType.OK) {
+	            return;
+	        } 
+		}
 		Alert success = new Alert(AlertType.INFORMATION, "Successfully create a new empty tree!", ButtonType.OK);
 		success.setTitle("");
 		success.setHeaderText("");
@@ -194,12 +203,85 @@ public class ScreenController {
 
 	@FXML
 	void deletePressed(ActionEvent event) {
+		screenContainer.setCenter(graphicTree);
 
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		if (graphicTree.isEmptyForBalanced()) {
+			Alert er1 = new Alert(AlertType.INFORMATION, "You must create a tree and set the limit first",
+					ButtonType.OK);
+			er1.setTitle("Error");
+			er1.setHeaderText("");
+			er1.show();
+		} else {
+			if (graphicTree.isEmpty()) {
+				Alert er1 = new Alert(AlertType.INFORMATION, "The tree is empty now!", ButtonType.OK);
+				er1.setTitle("Error");
+				er1.setHeaderText("");
+				er1.show();
+			} else {
+				try {
+					Integer num = Integer.parseInt(this.inputNodeKey.getText().trim());
+					graphicTree.delete(num);
+				} catch (NumberFormatException e1) {
+					Alert er1 = new Alert(AlertType.INFORMATION, "Key must be an INTEGER!", ButtonType.OK);
+					er1.setTitle("Error");
+					er1.setHeaderText("");
+					er1.show();
+				}
+			}
+		}
 	}
 
 	@FXML
 	void updatePressed(ActionEvent event) {
+		screenContainer.setCenter(graphicTree);
 
+		graphicTree.widthProperty().bind(screenContainer.widthProperty());
+		graphicTree.heightProperty().bind(screenContainer.heightProperty());
+		if (graphicTree.isEmptyForBalanced()) {
+			Alert er1 = new Alert(AlertType.INFORMATION, "You must create a tree and set the limit first",
+					ButtonType.OK);
+			er1.setTitle("Error");
+			er1.setHeaderText("");
+			er1.show();
+		} else {
+			try {
+				Integer num = Integer.parseInt(this.inputNodeKey.getText().trim());
+				if (graphicTree.isEmpty()) {
+					graphicTree.setRoot(num);
+					return;
+				}
+				TextInputDialog td = new TextInputDialog();
+				td.setHeaderText("Input the value you want to update to node with value " + num);
+				Button okButton = (Button) td.getDialogPane().lookupButton(ButtonType.OK);
+				EventHandler<ActionEvent> event1 = new EventHandler<ActionEvent>() {
+					public void handle(ActionEvent evt) {
+						try {
+							Integer temp = Integer.parseInt(td.getEditor().getText().trim());
+							graphicTree.update(num, temp);
+						} catch (TreeException e) {
+							Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+							er2.setTitle("Error");
+							er2.setHeaderText("");
+							er2.show();
+						} catch (NumberFormatException e2) {
+							Alert er1 = new Alert(AlertType.INFORMATION, "Key must be an INTEGER!", ButtonType.OK);
+							er1.setTitle("Error");
+							er1.setHeaderText("");
+							er1.show();
+						}
+					}
+				};
+				okButton.setOnAction(event1);
+				td.showAndWait();
+			} catch (NumberFormatException e1) {
+				Alert er1 = new Alert(AlertType.INFORMATION, "Key must be an INTEGER!", ButtonType.OK);
+				er1.setTitle("Error");
+				er1.setHeaderText("");
+				er1.show();
+			}
+		}
 	}
 
 	@FXML
