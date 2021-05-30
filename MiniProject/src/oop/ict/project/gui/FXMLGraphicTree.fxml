@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -13,11 +14,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.ict.project.gui.ScreenController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.ict.project.gui.ScreenController">
    <bottom>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="inputNodeKey" prefHeight="40.0" prefWidth="120.0" promptText="Key" />
+            <TextField fx:id="inputNodeKey" prefHeight="40.0" prefWidth="120.0" promptText="Key">
+               <font>
+                  <Font size="14.0" />
+               </font></TextField>
             <Button mnemonicParsing="false" onAction="#createPressed" prefHeight="40.0" prefWidth="90.0" text="Create" />
             <Button mnemonicParsing="false" onAction="#insertPressed" prefHeight="40.0" prefWidth="90.0" text="Insert" />
             <Button mnemonicParsing="false" onAction="#deletePressed" prefHeight="40.0" prefWidth="90.0" text="Delete" />
@@ -36,10 +40,13 @@
       </HBox>
    </bottom>
    <top>
-      <Label fx:id="currentTreeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" text="Visualization" textAlignment="CENTER" textFill="#cd3908" BorderPane.alignment="CENTER">
+      <Label fx:id="currentTreeName" alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" text="Visualization" textAlignment="CENTER" textFill="#080fcc" BorderPane.alignment="CENTER">
          <font>
             <Font size="24.0" />
-         </font></Label>
+         </font>
+         <effect>
+            <SepiaTone />
+         </effect></Label>
    </top>
    <center>
       <BorderPane fx:id="screenContainer" prefHeight="200.0" BorderPane.alignment="CENTER" />

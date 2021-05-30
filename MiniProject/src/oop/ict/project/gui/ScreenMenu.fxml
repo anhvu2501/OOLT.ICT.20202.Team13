@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
@@ -38,13 +39,16 @@
         </HBox>
     </bottom>
    <center>
-        <Label alignment="CENTER" text="Visualization of Tree Data Structures" textFill="#cd3908" BorderPane.alignment="CENTER">
+        <Label alignment="CENTER" text="Visualization of Tree Data Structures" textFill="#1616da" BorderPane.alignment="CENTER">
             <font>
                 <Font size="40.0" />
             </font>
             <BorderPane.margin>
                 <Insets top="5.0" />
             </BorderPane.margin>
+         <effect>
+            <SepiaTone />
+         </effect>
         </Label>
    </center>
 </BorderPane>
