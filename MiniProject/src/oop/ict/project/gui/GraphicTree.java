@@ -203,6 +203,70 @@ public class GraphicTree extends Canvas {
 		timeline.getKeyFrames().add(kf);
 		timeline.play();
 	}
+	
+	public void delete(Integer deleteValue) {
+		nodeList.clear();
+		nodeList.add(this.mainTree.root);
+		nodeList = this.mainTree.searchNode(nodeList, deleteValue);
+		this.drawHighlightSequence(nodeList);
+		final int numTime = nodeList.size(); // so lan de chay xong search
+		Node deleteNode = nodeList.get(nodeList.size()-1);
+		Node parentNode = mainTree.getParentNode(mainTree.root, deleteValue);
+		
+		GraphicsContext gc = this.getGraphicsContext2D();
+		Timeline timeline = new Timeline();
+		KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
+			try {
+				nodeList = this.mainTree.deleteNode(deleteValue);
+			} catch (TreeException e) {
+				Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+				er2.setTitle("Error");
+				er2.setHeaderText("");
+				er2.show();
+			}
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf);
+		if(deleteNode.children.size() > 0  && deleteNode != mainTree.root) {
+			ArrayList<Node> childrenList = deleteNode.children;
+			KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + childrenList.size())), evt -> {
+				this.drawHighlightSequence(childrenList);
+				drawTree();
+			});
+			timeline.getKeyFrames().add(kf1);
+		}
+		timeline.play();
+	}
+	
+	public void update(Integer oldValue, Integer newValue) throws TreeException{
+		nodeList.clear();
+		nodeList.add(this.mainTree.root);
+		nodeList = this.mainTree.searchNode(nodeList, oldValue);
+		final int numTime = nodeList.size(); // so lan de chay xong search
+		this.drawHighlightSequence(nodeList);
+		
+		GraphicsContext gc = this.getGraphicsContext2D();
+		Timeline timeline = new Timeline();
+		KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
+			try {
+				nodeList = this.mainTree.updateValueOfNode(oldValue, newValue);
+			} catch (TreeException e) {
+				Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+				er2.setTitle("Error");
+				er2.setHeaderText("");
+				er2.show();
+			}
+			nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(true);
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf);
+		KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + 1)), evt -> {
+			nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(false);
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf1);
+		timeline.play();
+	}
 
 	public boolean isEmpty() {
 		if (this.mainTree.root == null) {
