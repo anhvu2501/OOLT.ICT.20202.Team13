@@ -50,7 +50,7 @@ public class ScreenMenuController {
         controller.transferData(this.graphicTree);
         controller.switchTree(4);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+        controller.restoreDraw();
         staticLabel.setText("Balanced Binary Tree");
         stage.setScene(scene);
         stage.show();
@@ -66,7 +66,7 @@ public class ScreenMenuController {
         controller.transferData(this.graphicTree);
         controller.switchTree(3);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+        controller.restoreDraw();
         staticLabel.setText("Balanced Tree");
         stage.setScene(scene);
         stage.show();
@@ -82,7 +82,7 @@ public class ScreenMenuController {
         controller.transferData(this.graphicTree);
         controller.switchTree(2);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+        controller.restoreDraw();
         staticLabel.setText("Binary Tree");
         stage.setScene(scene);
         stage.show();
@@ -98,7 +98,7 @@ public class ScreenMenuController {
         controller.transferData(this.graphicTree);
         controller.switchTree(1);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
+        controller.restoreDraw();
         staticLabel.setText("Generic Tree");
         stage.setScene(scene);
         stage.show();

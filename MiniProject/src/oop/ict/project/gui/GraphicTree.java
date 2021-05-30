@@ -7,6 +7,9 @@ import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -27,7 +30,7 @@ public class GraphicTree extends Canvas {
 	private BalancedBinaryTree balancedBinaryTree; // type4
 	private GenericTree mainTree;
 	private static final int numberLayer = 8;
-	private ArrayList<Node> nodeList;
+	private ArrayList<Node> nodeList = new ArrayList<Node>();
 
 	public void switchTree(Integer type) {
 		if (type == 1) {
@@ -40,24 +43,28 @@ public class GraphicTree extends Canvas {
 			this.mainTree = this.balancedBinaryTree;
 		}
 	}
-	
+
 	public void setLimit(Integer limit, Integer type) {
-		if(type==3) {
+		if (type == 3) {
 			this.balancedTree.setLimitDistance(limit);
-		}else {
+		} else {
 			this.balancedBinaryTree.setLimitDistance(limit);
 		}
 	}
-	
+
 	public void createEmptyTree(Integer type) {
 		if (type == 1) {
 			this.genericTree = new GenericTree();
+			this.mainTree = this.genericTree;
 		} else if (type == 2) {
 			this.binaryTree = new BinaryTree();
+			this.mainTree = this.binaryTree;
 		} else if (type == 3) {
 			this.balancedTree = new BalancedTree();
+			this.mainTree = this.balancedTree;
 		} else {
 			this.balancedBinaryTree = new BalancedBinaryTree();
+			this.mainTree = this.balancedBinaryTree;
 		}
 	}
 
@@ -85,7 +92,6 @@ public class GraphicTree extends Canvas {
 		Point2D point = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
 		root.rootCircle.setPoint(point);
 		root.rootCircle.draw(gc);
-		System.out.println(root.rootCircle.getSearchKey());
 		for (int i = 0; i < root.getNbChildren(); i++) {
 			drawCircles(gc, root.children.get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
 					minWidth + (i + 1) * (maxWidth - minWidth) / root.getNbChildren(), maxHeight,
@@ -124,7 +130,7 @@ public class GraphicTree extends Canvas {
 		timeline.getKeyFrames().add(kf);
 		for (Integer index = 1; index < ar.size(); index++) {
 			final Integer i = index;
-			KeyFrame kf1 = new KeyFrame(Duration.seconds(i), evt -> {
+			KeyFrame kf1 = new KeyFrame(Duration.millis(500*i), evt -> {
 				ar.get(i - 1).rootCircle.setHighlighter(false);
 				ar.get(i).rootCircle.setHighlighter(true);
 				drawTree();
@@ -132,12 +138,61 @@ public class GraphicTree extends Canvas {
 			timeline.getKeyFrames().add(kf1);
 		}
 
-		KeyFrame kf2 = new KeyFrame(Duration.seconds(ar.size()), evt -> {
+		KeyFrame kf2 = new KeyFrame(Duration.millis(ar.size()*500), evt -> {
 			ar.get(ar.size() - 1).rootCircle.setHighlighter(false);
 			drawTree();
 		});
 		timeline.getKeyFrames().add(kf2);
 		timeline.play();
+	}
+
+	public void insert(Integer parentValue, Integer keyValue) throws TreeException {
+		nodeList.clear();
+		nodeList.add(this.mainTree.root);
+		nodeList = this.mainTree.searchNode(nodeList, parentValue);
+		this.drawHighlightSequence(nodeList);
+		final int numTime = nodeList.size(); // so lan de chay xong search
+
+		GraphicsContext gc = this.getGraphicsContext2D();
+		Timeline timeline = new Timeline();
+		KeyFrame kf = new KeyFrame(Duration.millis(500*numTime), evt -> {
+			try {
+				nodeList = this.mainTree.insertNode(parentValue, new Node(keyValue));
+			} catch (TreeException e) {
+				Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
+				er2.setTitle("Error");
+				er2.setHeaderText("");
+				er2.show();
+			}
+			nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(true);
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf);
+		KeyFrame kf1 = new KeyFrame(Duration.millis(500*(numTime + 1)), evt -> {
+			nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(false);
+			drawTree();
+		});
+		timeline.getKeyFrames().add(kf1);
+		timeline.play();
+	}
+
+	public boolean isEmpty() {
+		if (this.mainTree.root == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isEmptyForBalanced() {
+		if(this.mainTree.root==null && ((this.balancedTree.getLimitDistance()==1&&this.mainTree==this.balancedTree)||
+				(this.balancedBinaryTree.getLimitDistance()==1&&this.mainTree==this.balancedBinaryTree)))
+			return true;
+		return false;
+	}
+
+	public void setRoot(Integer key) {
+		this.mainTree.root = new Node(key);
+		this.drawTree();
 	}
 
 	public void clear() {
