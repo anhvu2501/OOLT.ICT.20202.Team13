@@ -66,6 +66,7 @@ public class BalancedBinaryTree extends BinaryTree {
                     throw new TreeException("Only can input max 2 nodes");
                 searchNodeList.add(newNode);
                 this.updateMaxMin(this.root);
+                this.updateDepth(this.root);
                 if (this.maxLeafDepth - this.minLeafDepth > this.limitDistance) {
                     searchNodeList.get(searchNodeList.size() - 2).children.remove(newNode);
                     this.updateMaxMin(this.root);
@@ -98,16 +99,5 @@ public class BalancedBinaryTree extends BinaryTree {
         }
         for (Node child : root.children)
             updateMaxMin(child);
-    }
-
-    public void updateDepth(Node root) {
-        if (root == this.root) {
-            this.root.setDepth(1);
-        }
-        for (Node child : root.children) {
-            child.setDepth(root.getDepth() + 1);
-            updateDepth(child);
-        }
-
     }
 }

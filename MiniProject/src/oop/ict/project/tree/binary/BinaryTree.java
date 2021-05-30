@@ -41,6 +41,7 @@ public class BinaryTree extends GenericTree {
                 } else
                     throw new TreeException("Only can input max 2 nodes!!");
                 searchNodeList.add(newNode);
+                this.updateDepth(this.root);
                 return searchNodeList;
             } else
                 throw new TreeException("Cannot find node with value " + parentValue);
