@@ -17,8 +17,6 @@ import java.io.IOException;
 import static oop.ict.project.gui.ScreenController.staticLabel;
 
 public class ScreenMenuController {
-    @FXML
-    private Button helpMenuButton;
 
     @FXML
     private Button exitButton;
