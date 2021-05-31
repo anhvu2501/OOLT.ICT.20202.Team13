@@ -1,26 +1,23 @@
 package oop.ict.project.gui;
 
-import java.util.ArrayList;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
+import javafx.scene.control.ButtonType;
 import javafx.util.Duration;
+import oop.ict.project.shape.Line;
 import oop.ict.project.tree.balanced.BalancedTree;
 import oop.ict.project.tree.balancedbinary.BalancedBinaryTree;
 import oop.ict.project.tree.binary.BinaryTree;
 import oop.ict.project.tree.exception.TreeException;
 import oop.ict.project.tree.generic.GenericTree;
 import oop.ict.project.tree.generic.Node;
-import oop.ict.project.shape.Line;
+
+import java.util.ArrayList;
 
 public class GraphicTree extends Canvas {
 
@@ -31,7 +28,6 @@ public class GraphicTree extends Canvas {
 	private GenericTree mainTree;
 	private static final Integer numberLayer = 8;
 	private ArrayList<Node> nodeList = new ArrayList<Node>();
-
 	public void switchTree(Integer type) {
 		if (type == 1) {
 			this.mainTree = this.genericTree;
@@ -240,5 +236,4 @@ public class GraphicTree extends Canvas {
         nodeList = this.mainTree.traversePostOrder();
         this.drawHighlightSequence(nodeList);
     }
-
 }
