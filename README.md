@@ -2,7 +2,7 @@
 
 1. Member information and assignment 
 
-*Member information
+* Member information
 
 Phùng Thu Hằng - 20194758
 
