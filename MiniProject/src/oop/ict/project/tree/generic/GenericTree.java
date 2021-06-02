@@ -98,16 +98,22 @@ public class GenericTree {
 	}
 
 	public ArrayList<Node> updateValueOfNode(Integer currentValue, Integer newValue) throws TreeException {
-		boolean isUpdateInTree = isInTree(root, currentValue);
-		if (isUpdateInTree) {
-			ArrayList<Node> foundUpdateNodeList = new ArrayList<>();
-			foundUpdateNodeList.add(root);
-			foundUpdateNodeList = searchNode(foundUpdateNodeList, currentValue);
-			foundUpdateNodeList.get(foundUpdateNodeList.size() - 1).rootCircle.setSearchKey(newValue);
-
-			return foundUpdateNodeList;
-		} else {
-			throw new TreeException("Cannot find node with value " + currentValue);
+		boolean isNewValueInTree = isInTree(root, newValue);
+		if(!isNewValueInTree) {
+			boolean isUpdateInTree = isInTree(root, currentValue);
+			if (isUpdateInTree) {
+				ArrayList<Node> foundUpdateNodeList = new ArrayList<>();
+				foundUpdateNodeList.add(root);
+				foundUpdateNodeList = searchNode(foundUpdateNodeList, currentValue);
+				foundUpdateNodeList.get(foundUpdateNodeList.size() - 1).rootCircle.setSearchKey(newValue);
+	
+				return foundUpdateNodeList;
+			} else {
+				throw new TreeException("Cannot find node with value " + currentValue);
+			}
+		}
+		else {
+			throw new TreeException("New value " + newValue + " already exists in the tree.");
 		}
 	}
 
