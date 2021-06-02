@@ -41,11 +41,4 @@ public final class Line {
 	public Point2D getPoint2() {
 		return point2;
 	}
-
-	@Override
-	public String toString() {
-		
-		return " (x,y) = ("  + point.getX() + ", " + point.getY() + ")"
-			+  " (x,y) = ("  + point2.getX() + ", " + point2.getY()+ ")";
-	}
 }

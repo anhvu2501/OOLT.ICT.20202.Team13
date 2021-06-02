@@ -28,6 +28,9 @@ public class ScreenController {
     public static Label staticLabel;
 
     private GraphicTree graphicTree;
+    
+    private Stage stage;
+    private Scene scene;
 
     public void initialize() {
         staticLabel = currentTreeName;
@@ -60,9 +63,6 @@ public class ScreenController {
         this.graphicTree.switchTree(type);
         this.graphicTree.drawTree();
     }
-
-    private Stage stage;
-    private Scene scene;
 
     @FXML
     void createPressed(ActionEvent event) {

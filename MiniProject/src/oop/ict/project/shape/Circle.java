@@ -117,11 +117,4 @@ public final class Circle {
 			this.fontColor = Color.rgb(255, 255, 255);
 		}
 	}
-
-	@Override
-	public String toString() {
-		
-		return "Search Key# " + searchKey  + 
-				" (x,y) = ("  + point.getX() + ", " + point.getY() + ")";
-	}
 }
