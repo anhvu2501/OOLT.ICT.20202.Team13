@@ -29,16 +29,8 @@ public final class Line {
 		gc.strokeLine(point.getX(), point.getY(), point2.getX(), point2.getY());
 	}
 	
-	public Point2D getPoint() {
-		return point;
-	}
-	
 	public void setPoint(Point2D point, Point2D point2) {
 		this.point = point;
 		this.point2 = point2;
-	}
-	
-	public Point2D getPoint2() {
-		return point2;
 	}
 }

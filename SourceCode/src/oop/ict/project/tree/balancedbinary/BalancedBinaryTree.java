@@ -52,14 +52,14 @@ public class BalancedBinaryTree extends BinaryTree {
 
     @Override
     public ArrayList<Node> insertNode(Integer parentValue, Node newNode) throws TreeException {
-        boolean isNodeInTree = isInTree(root, newNode.rootCircle.getSearchKey());
+        boolean isNodeInTree = isInTree(root, newNode.getRootCircle().getSearchKey());
         if (!isNodeInTree) {
             boolean isParentInTree = isInTree(root, parentValue);
             if (isParentInTree) {
                 ArrayList<Node> searchParentNodeList = new ArrayList<>();
                 searchParentNodeList.add(root);
                 ArrayList<Node> searchNodeList = searchNode(searchParentNodeList, parentValue);
-                if (searchNodeList.get(searchNodeList.size() - 1).children.size() < this.MAX_NB_CHILDREN) {
+                if (searchNodeList.get(searchNodeList.size() - 1).getChildren().size() < this.MAX_NB_CHILDREN) {
                     newNode.setDepth(searchNodeList.get(searchNodeList.size() - 1).getDepth() + 1);
                     searchNodeList.get(searchNodeList.size() - 1).addChild(newNode);
                 } else
@@ -68,7 +68,7 @@ public class BalancedBinaryTree extends BinaryTree {
                 this.updateMaxMin(this.root);
                 this.updateDepth(this.root);
                 if (this.maxLeafDepth - this.minLeafDepth > this.limitDistance) {
-                    searchNodeList.get(searchNodeList.size() - 2).children.remove(newNode);
+                    searchNodeList.get(searchNodeList.size() - 2).getChildren().remove(newNode);
                     this.updateMaxMin(this.root);
                     throw new TreeException("The node inserted makes the tree unbalanced");
                 } else
@@ -76,7 +76,7 @@ public class BalancedBinaryTree extends BinaryTree {
             } else
                 throw new TreeException("Cannot find node with value " + parentValue);
         } else
-            throw new TreeException("Node with value " + newNode.rootCircle.getSearchKey()
+            throw new TreeException("Node with value " + newNode.getRootCircle().getSearchKey()
                     + " already exists in the tree");
     }
 
@@ -97,7 +97,7 @@ public class BalancedBinaryTree extends BinaryTree {
             if (root.getDepth() > this.maxLeafDepth)
                 this.maxLeafDepth = root.getDepth();
         }
-        for (Node child : root.children)
+        for (Node child : root.getChildren())
             updateMaxMin(child);
     }
 }

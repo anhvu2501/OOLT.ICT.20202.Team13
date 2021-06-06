@@ -24,6 +24,12 @@ public class ScreenController {
 
     @FXML
     private BorderPane screenContainer;
+    
+    @FXML
+    private Button pauseBtn;
+
+    @FXML
+    private Button resumeBtn;
 
     public static Label staticLabel;
 
@@ -65,7 +71,7 @@ public class ScreenController {
     }
 
     @FXML
-    void createPressed(ActionEvent event) {
+    public void createPressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -143,7 +149,7 @@ public class ScreenController {
     }
 
     @FXML
-    void insertPressed(ActionEvent event) {
+    public void insertPressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -202,7 +208,7 @@ public class ScreenController {
     }
 
     @FXML
-    void deletePressed(ActionEvent event) {
+    public void deletePressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -234,7 +240,7 @@ public class ScreenController {
     }
 
     @FXML
-    void updatePressed(ActionEvent event) {
+    public void updatePressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -285,7 +291,7 @@ public class ScreenController {
     }
 
     @FXML
-    void searchPressed(ActionEvent event) {
+    public void searchPressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -317,7 +323,7 @@ public class ScreenController {
     }
 
     @FXML
-    void preorderPressed(ActionEvent event) {
+    public void preorderPressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -335,7 +341,7 @@ public class ScreenController {
     }
 
     @FXML
-    void postorderPressed(ActionEvent event) {
+    public void postorderPressed(ActionEvent event) {
         screenContainer.setCenter(graphicTree);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
@@ -354,7 +360,7 @@ public class ScreenController {
     }
 
     @FXML
-    void backPressed(ActionEvent event) throws IOException {
+    public void backPressed(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("ScreenMenu.fxml"));
         Parent root = loader.load();
@@ -365,5 +371,15 @@ public class ScreenController {
 
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML
+    void resumePressed(ActionEvent event) {
+    	graphicTree.timeline.play();
+    }
+
+    @FXML
+    void pausePressed(ActionEvent event) {
+    	graphicTree.timeline.pause();
     }
 }

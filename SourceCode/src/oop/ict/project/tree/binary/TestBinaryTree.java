@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class TestBinaryTree {
     public static void main(String[] args) throws TreeException {
         BinaryTree tempTree = new BinaryTree(new Node(4));
-        Integer rootValue = tempTree.root.rootCircle.getSearchKey();
+        Integer rootValue = tempTree.root.getRootCircle().getSearchKey();
         try {
             ArrayList<Node> listNodes = tempTree.insertNode(rootValue, new Node(2));
             listNodes = tempTree.insertNode(rootValue, new Node(1));
@@ -30,7 +30,7 @@ public class TestBinaryTree {
             searchNode = tempTree.searchNode(searchNode, 5);
             System.out.println("Search list of 5:");
             for (Node index : searchNode) {
-                System.out.print(index.rootCircle.getSearchKey() + "  ");
+                System.out.print(index.getRootCircle().getSearchKey() + "  ");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -40,13 +40,13 @@ public class TestBinaryTree {
         System.out.println("\nPreorder Traversal");
         ArrayList<Node> preOrderList = tempTree.traversePreOrder();
         for (Node i : preOrderList) {
-            System.out.print(i.rootCircle.getSearchKey() + "  ");
+            System.out.print(i.getRootCircle().getSearchKey() + "  ");
         }
 
         System.out.println("\nPostorder Traversal");
         ArrayList<Node> postOrderList = tempTree.traversePostOrder();
         for (Node i : postOrderList) {
-            System.out.print(i.rootCircle.getSearchKey() + "  ");
+            System.out.print(i.getRootCircle().getSearchKey() + "  ");
         }
 
         System.out.println();
@@ -84,7 +84,7 @@ public class TestBinaryTree {
         System.out.println("Delete node 2: ");
         try {
             ArrayList<Node> listNodes = tempTree.deleteNode(2);
-            listNodes.forEach(t -> System.out.print(t.rootCircle.getSearchKey() + " "));
+            listNodes.forEach(t -> System.out.print(t.getRootCircle().getSearchKey() + " "));
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -94,13 +94,13 @@ public class TestBinaryTree {
         System.out.println("\nPreorder Traversal");
         preOrderList = tempTree.traversePreOrder();
         for (Node i : preOrderList) {
-            System.out.print(i.rootCircle.getSearchKey() + "  ");
+            System.out.print(i.getRootCircle().getSearchKey() + "  ");
         }
 
         System.out.println("\nPostorder Traversal");
         postOrderList = tempTree.traversePostOrder();
         for (Node i : postOrderList) {
-            System.out.print(i.rootCircle.getSearchKey() + "  ");
+            System.out.print(i.getRootCircle().getSearchKey() + "  ");
         }
     }
 

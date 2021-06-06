@@ -40,7 +40,7 @@ public class ScreenMenuController {
     }
 
     @FXML
-    void selectBalancedBinaryTree(ActionEvent event) throws IOException {
+    public void selectBalancedBinaryTree(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
@@ -56,7 +56,7 @@ public class ScreenMenuController {
     }
 
     @FXML
-    void selectBalancedTree(ActionEvent event) throws IOException {
+    public void selectBalancedTree(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
@@ -72,7 +72,7 @@ public class ScreenMenuController {
     }
 
     @FXML
-    void selectBinaryTree(ActionEvent event) throws IOException {
+    public void selectBinaryTree(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
@@ -88,7 +88,7 @@ public class ScreenMenuController {
     }
 
     @FXML
-    void selectGenericTree(ActionEvent event) throws IOException {
+    public void selectGenericTree(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("FXMLGraphicTree.fxml"));
         Parent root = loader.load();
@@ -104,7 +104,7 @@ public class ScreenMenuController {
     }
 
     @FXML
-    void selectHelpMenu(ActionEvent event) {
+    public void selectHelpMenu(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,
                 "Aims: Visualization of Tree Data Structures" +
                         "\n\nHow to visualize a tree:\n" +
@@ -119,7 +119,7 @@ public class ScreenMenuController {
     }
 
     @FXML
-    void pressExitButton(ActionEvent event) {
+    public void pressExitButton(ActionEvent event) {
         Stage stage = (Stage) exitButton.getScene().getWindow();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to quit?", ButtonType.OK, ButtonType.CANCEL);
         alert.setTitle("Exit");

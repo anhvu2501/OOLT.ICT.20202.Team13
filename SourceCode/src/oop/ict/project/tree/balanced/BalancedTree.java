@@ -52,7 +52,7 @@ public class BalancedTree extends GenericTree {
 
 	@Override
 	public ArrayList<Node> insertNode(Integer parentValue, Node newNode) throws TreeException {
-		boolean isNodeInTree = isInTree(root, newNode.rootCircle.getSearchKey());
+		boolean isNodeInTree = isInTree(root, newNode.getRootCircle().getSearchKey());
 		if (!isNodeInTree) {
 			boolean isParentInTree = isInTree(root, parentValue);
 			if (isParentInTree) {
@@ -64,7 +64,7 @@ public class BalancedTree extends GenericTree {
 				searchNodeList.add(newNode);
 				this.updateMaxMin(this.root);
 				if (this.maxLeafDepth - this.minLeafDepth > this.limitDistance) {
-					searchNodeList.get(searchNodeList.size()-2).children.remove(newNode);
+					searchNodeList.get(searchNodeList.size()-2).getChildren().remove(newNode);
 					this.updateMaxMin(this.root);
 					throw new TreeException("Cannot insert because the new node makes the tree become imbalanced.");
 				} else {
@@ -75,7 +75,7 @@ public class BalancedTree extends GenericTree {
 			}
 		} else {
 			throw new TreeException(
-					"Node with value " + newNode.rootCircle.getSearchKey() + "already exists in the tree.");
+					"Node with value " + newNode.getRootCircle().getSearchKey() + "already exists in the tree.");
 		}
 	}
 
@@ -83,7 +83,7 @@ public class BalancedTree extends GenericTree {
 	public ArrayList<Node> deleteNode(Integer value) throws TreeException {
 		boolean isInTree = isInTree(root, value);
 		if (isInTree) {
-			if (value == root.rootCircle.getSearchKey()) {
+			if (value == root.getRootCircle().getSearchKey()) {
 				throw new TreeException("Cannot delete root node. You can create new tree to clear old tree.");
 			} else {
 				ArrayList<Node> foundDeleteNodeList = new ArrayList<>();
@@ -92,30 +92,30 @@ public class BalancedTree extends GenericTree {
 				Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
 				foundDeleteNodeList.remove(foundNode);
 				Node parentNode = getParentNode(root, value);
-				Integer indexOfDeleteNode = parentNode.children.indexOf(foundNode);
+				Integer indexOfDeleteNode = parentNode.getChildren().indexOf(foundNode);
 				if (foundNode.getNbChildren()==0) {
-					parentNode.children.remove(foundNode);
+					parentNode.getChildren().remove(foundNode);
 					this.updateMaxMin(this.root);
 					if(this.maxLeafDepth-this.minLeafDepth>this.limitDistance) {
-						parentNode.children.add(indexOfDeleteNode, foundNode);
+						parentNode.getChildren().add(indexOfDeleteNode, foundNode);
 						this.updateMaxMin(this.root);
 						throw new TreeException("Cannot delete because it make the tree imbalance");
 					}
 					return foundDeleteNodeList;
 				} else {
-					parentNode.children.remove(foundNode);
-					for (int i = 0; i < foundNode.children.size(); i++) {
-						parentNode.children.add(indexOfDeleteNode + i, foundNode.children.get(i));
-						foundDeleteNodeList.add(foundNode.children.get(i));
+					parentNode.getChildren().remove(foundNode);
+					for (int i = 0; i < foundNode.getChildren().size(); i++) {
+						parentNode.getChildren().add(indexOfDeleteNode + i, foundNode.getChildren().get(i));
+						foundDeleteNodeList.add(foundNode.getChildren().get(i));
 					}
 					this.updateDepth(this.root);
 					this.updateMaxMin(this.root);
 					if(this.maxLeafDepth-this.minLeafDepth>this.limitDistance) {
-						for (int i = 0; i < foundNode.children.size(); i++) {
-							parentNode.children.remove(foundNode.children.get(i));
-							foundDeleteNodeList.remove(foundNode.children.get(i));
+						for (int i = 0; i < foundNode.getChildren().size(); i++) {
+							parentNode.getChildren().remove(foundNode.getChildren().get(i));
+							foundDeleteNodeList.remove(foundNode.getChildren().get(i));
 						}
-						parentNode.children.add(indexOfDeleteNode, foundNode);
+						parentNode.getChildren().add(indexOfDeleteNode, foundNode);
 						this.updateDepth(this.root);
 						this.updateMaxMin(this.root);
 						throw new TreeException("Cannot delete because it make the tree imbalance");
@@ -145,7 +145,7 @@ public class BalancedTree extends GenericTree {
 			if (root.getDepth() > this.maxLeafDepth)
 				this.maxLeafDepth = root.getDepth();
 		}
-		for (Node child : root.children)
+		for (Node child : root.getChildren())
 			updateMaxMin(child);
 	}
 
