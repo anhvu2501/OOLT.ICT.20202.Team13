@@ -8,11 +8,23 @@ import java.util.ArrayList;
 
 public class Node {
 	private int depth;
-    public Circle rootCircle;
-    public ArrayList<Node> children = new ArrayList<>();
-    public boolean highlightFlag;
+    private Circle rootCircle;
+    private ArrayList<Node> children = new ArrayList<>();
+    private boolean highlightFlag;
 
-    public Node(Integer key) {
+    public Circle getRootCircle() {
+		return rootCircle;
+	}
+
+	public void setRootCircle(Circle rootCircle) {
+		this.rootCircle = rootCircle;
+	}
+
+	public ArrayList<Node> getChildren() {
+		return children;
+	}
+
+	public Node(Integer key) {
         this.rootCircle = new Circle(key);
     }
 

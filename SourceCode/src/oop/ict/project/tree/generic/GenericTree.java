@@ -20,7 +20,7 @@ public class GenericTree {
 	}
 
 	public GenericTree(Circle rootValue) {
-		this.root.rootCircle = rootValue;
+		this.root.setRootCircle(rootValue);
 		this.root.setDepth(1);
 	}
 
@@ -29,7 +29,7 @@ public class GenericTree {
 	}
 
 	public ArrayList<Node> insertNode(Integer parentValue, Node newNode) throws TreeException {
-		boolean isNodeInTree = isInTree(root, newNode.rootCircle.getSearchKey());
+		boolean isNodeInTree = isInTree(root, newNode.getRootCircle().getSearchKey());
 		if (!isNodeInTree) {
 			boolean isParentInTree = isInTree(root, parentValue);
 			if (isParentInTree) {
@@ -45,18 +45,18 @@ public class GenericTree {
 			}
 		} else {
 			throw new TreeException(
-					"Node with value " + newNode.rootCircle.getSearchKey() + " already exists in the tree.");
+					"Node with value " + newNode.getRootCircle().getSearchKey() + " already exists in the tree.");
 		}
 	}
 
 	public Node getParentNode(Node node, Integer key) {
 		ArrayList<Node> foundNodeList = new ArrayList<>();
 		foundNodeList.add(root);
-		if (node.children.contains(searchNode(foundNodeList, key).get(foundNodeList.size() - 1))) {
+		if (node.getChildren().contains(searchNode(foundNodeList, key).get(foundNodeList.size() - 1))) {
 			return node;
 		}
 
-		for (Node child : node.children) {
+		for (Node child : node.getChildren()) {
 			Node foundNode = getParentNode(child, key);
 			if (foundNode != null) {
 				return foundNode;
@@ -69,7 +69,7 @@ public class GenericTree {
 	public ArrayList<Node> deleteNode(Integer value) throws TreeException {
 		boolean isInTree = isInTree(root, value);
 		if (isInTree) {
-			if (value == root.rootCircle.getSearchKey()) {
+			if (value == root.getRootCircle().getSearchKey()) {
 				throw new TreeException("Cannot delete root node. You can create new tree to clear old tree.");
 			} else {
 				ArrayList<Node> foundDeleteNodeList = new ArrayList<>();
@@ -78,16 +78,16 @@ public class GenericTree {
 				Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
 				Node parentNode = getParentNode(root, value);
 				foundDeleteNodeList.remove(foundNode);
-				if (foundNode.children.size() == 0) {
-					parentNode.children.remove(foundNode);
+				if (foundNode.getChildren().size() == 0) {
+					parentNode.getChildren().remove(foundNode);
 					return foundDeleteNodeList;
 				} else {
-					Integer indexOfDeteleNode = parentNode.children.indexOf(foundNode);
-					for (int i = 0; i < foundNode.children.size(); i++) {
-						parentNode.children.add(indexOfDeteleNode + i, foundNode.children.get(i));
-						foundDeleteNodeList.add(foundNode.children.get(i));
+					Integer indexOfDeteleNode = parentNode.getChildren().indexOf(foundNode);
+					for (int i = 0; i < foundNode.getChildren().size(); i++) {
+						parentNode.getChildren().add(indexOfDeteleNode + i, foundNode.getChildren().get(i));
+						foundDeleteNodeList.add(foundNode.getChildren().get(i));
 					}
-					parentNode.children.remove(foundNode);
+					parentNode.getChildren().remove(foundNode);
 					foundNode = null;
 					return foundDeleteNodeList;
 				}
@@ -105,7 +105,7 @@ public class GenericTree {
 				ArrayList<Node> foundUpdateNodeList = new ArrayList<>();
 				foundUpdateNodeList.add(root);
 				foundUpdateNodeList = searchNode(foundUpdateNodeList, currentValue);
-				foundUpdateNodeList.get(foundUpdateNodeList.size() - 1).rootCircle.setSearchKey(newValue);
+				foundUpdateNodeList.get(foundUpdateNodeList.size() - 1).getRootCircle().setSearchKey(newValue);
 	
 				return foundUpdateNodeList;
 			} else {
@@ -137,10 +137,10 @@ public class GenericTree {
 			if (top.state == -1) {
 				preOrderList.add(top.node);
 				top.state++;
-			} else if (top.state == top.node.children.size()) {
+			} else if (top.state == top.node.getChildren().size()) {
 				stack.pop();
 			} else {
-				Pair cp = new Pair(top.node.children.get(top.state), -1);
+				Pair cp = new Pair(top.node.getChildren().get(top.state), -1);
 				stack.push(cp);
 				top.state++;
 			}
@@ -157,11 +157,11 @@ public class GenericTree {
 			Pair top = stack.peek();
 			if (top.state == -1) {
 				top.state++;
-			} else if (top.state == top.node.children.size()) {
+			} else if (top.state == top.node.getChildren().size()) {
 				postOrderList.add(top.node);
 				stack.pop();
 			} else {
-				Pair cp = new Pair(top.node.children.get(top.state), -1);
+				Pair cp = new Pair(top.node.getChildren().get(top.state), -1);
 				stack.push(cp);
 				top.state++;
 			}
@@ -170,10 +170,10 @@ public class GenericTree {
 	}
 
 	public boolean isInTree(Node node, Integer key) {
-		if (node.rootCircle.getSearchKey() == key) {
+		if (node.getRootCircle().getSearchKey() == key) {
 			return true;
 		}
-		for (Node child : node.children) {
+		for (Node child : node.getChildren()) {
 			boolean found = isInTree(child, key);
 			if (found) {
 				return true;
@@ -183,14 +183,14 @@ public class GenericTree {
 	}
 
 	public ArrayList<Node> searchNode(ArrayList<Node> listNodes, Integer key) { // listNodes contains 1 Node: root
-		if (listNodes.get(listNodes.size() - 1).rootCircle.getSearchKey() == key) {
+		if (listNodes.get(listNodes.size() - 1).getRootCircle().getSearchKey() == key) {
 			return listNodes;
 		}
 
-		for (Node child : listNodes.get(listNodes.size() - 1).children) {
+		for (Node child : listNodes.get(listNodes.size() - 1).getChildren()) {
 			listNodes.add(child);
 			ArrayList<Node> foundListNodes = searchNode(listNodes, key);
-			if (foundListNodes.get(listNodes.size() - 1).rootCircle.getSearchKey() == key) {
+			if (foundListNodes.get(listNodes.size() - 1).getRootCircle().getSearchKey() == key) {
 				return foundListNodes;
 			}
 		}
@@ -202,7 +202,7 @@ public class GenericTree {
 		if(root==this.root) {
 			this.root.setDepth(1);
 		}
-		for (Node child : root.children) {
+		for (Node child : root.getChildren()) {
 			child.setDepth(root.getDepth()+1);
 			updateDepth(child);
 		}

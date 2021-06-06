@@ -28,6 +28,7 @@ public class GraphicTree extends Canvas {
     private GenericTree mainTree;
     private static final Integer numberLayer = 8;
     private ArrayList<Node> nodeList = new ArrayList<>();
+    public static Timeline timeline = new Timeline();
 
     public void switchTree(Integer type) {
         if (type == 1) {
@@ -79,18 +80,18 @@ public class GraphicTree extends Canvas {
         GraphicsContext gc = this.getGraphicsContext2D();
         clear();
         if (this.mainTree.root != null) {
-            drawLines(gc, this.mainTree.root, 0, this.getWidth(), 0, this.getHeight() / this.numberLayer);
-            drawCircles(gc, this.mainTree.root, 0, this.getWidth(), 0, this.getHeight() / this.numberLayer);
+            drawLines(gc, this.mainTree.root, 0, this.getWidth(), 0, this.getHeight() / numberLayer);
+            drawCircles(gc, this.mainTree.root, 0, this.getWidth(), 0, this.getHeight() / numberLayer);
         }
     }
 
     public void drawCircles(GraphicsContext gc, Node root, double minWidth, double maxWidth, double minHeight,
                             double maxHeight) {
         Point2D point = new Point2D((minWidth + maxWidth) / 2, (minHeight + maxHeight) / 2);
-        root.rootCircle.setPoint(point);
-        root.rootCircle.draw(gc);
+        root.getRootCircle().setPoint(point);
+        root.getRootCircle().draw(gc);
         for (int i = 0; i < root.getNbChildren(); i++) {
-            drawCircles(gc, root.children.get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
+            drawCircles(gc, root.getChildren().get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
                     minWidth + (i + 1) * (maxWidth - minWidth) / root.getNbChildren(), maxHeight,
                     2 * maxHeight - minHeight);
         }
@@ -110,7 +111,7 @@ public class GraphicTree extends Canvas {
                 newLine.setPoint(linePoint1, linePoint2);
                 newLine.draw(gc);// Draw the line
 
-                drawLines(gc, root.children.get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
+                drawLines(gc, root.getChildren().get(i), minWidth + i * (maxWidth - minWidth) / root.getNbChildren(),
                         minWidth + (i + 1) * (maxWidth - minWidth) / root.getNbChildren(), maxHeight,
                         2 * maxHeight - minHeight);
             }
@@ -118,32 +119,30 @@ public class GraphicTree extends Canvas {
     }
 
     public void drawHighlightSequence(ArrayList<Node> ar) {
-        GraphicsContext gc = this.getGraphicsContext2D();
-        Timeline timeline = new Timeline();
         KeyFrame kf = new KeyFrame(Duration.ZERO, evt -> {
-            ar.get(0).rootCircle.setHighlighter(true);
+            ar.get(0).getRootCircle().setHighlighter(true);
             drawTree();
         });
         timeline.getKeyFrames().add(kf);
         for (Integer index = 1; index < ar.size(); index++) {
             final Integer i = index;
             KeyFrame kf1 = new KeyFrame(Duration.millis(500 * i), evt -> {
-                ar.get(i - 1).rootCircle.setHighlighter(false);
-                ar.get(i).rootCircle.setHighlighter(true);
+                ar.get(i - 1).getRootCircle().setHighlighter(false);
+                ar.get(i).getRootCircle().setHighlighter(true);
                 drawTree();
             });
             timeline.getKeyFrames().add(kf1);
         }
 
         KeyFrame kf2 = new KeyFrame(Duration.millis(ar.size() * 500), evt -> {
-            ar.get(ar.size() - 1).rootCircle.setHighlighter(false);
+            ar.get(ar.size() - 1).getRootCircle().setHighlighter(false);
             drawTree();
         });
         timeline.getKeyFrames().add(kf2);
-        timeline.play();
     }
 
     public void insert(Integer parentValue, Integer keyValue) throws TreeException {
+    	timeline.getKeyFrames().clear();
         nodeList.clear();
         nodeList.add(this.mainTree.root);
         nodeList = this.mainTree.searchNode(nodeList, parentValue);
@@ -152,13 +151,12 @@ public class GraphicTree extends Canvas {
         System.out.println(nodeList.get(nodeList.size() - 1).getDepth());
         if (nodeList.get(nodeList.size() - 1).getDepth() == 8) {
             Alert er2 = new Alert(AlertType.INFORMATION, "The maximum tree's depth of this program is "
-                    + this.numberLayer.toString() + "! You cannot insert more", ButtonType.OK);
+                    + numberLayer.toString() + "! You cannot insert more", ButtonType.OK);
             er2.setTitle("Error");
             er2.setHeaderText("");
             er2.show();
+            timeline.playFromStart();
         } else {
-            GraphicsContext gc = this.getGraphicsContext2D();
-            Timeline timeline = new Timeline();
             KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
                 try {
                     nodeList = this.mainTree.insertNode(parentValue, new Node(keyValue));
@@ -168,29 +166,28 @@ public class GraphicTree extends Canvas {
                     er2.setHeaderText("");
                     er2.show();
                 }
-                nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(true);
+                nodeList.get(nodeList.size() - 1).getRootCircle().setHighlighter(true);
                 drawTree();
             });
             timeline.getKeyFrames().add(kf);
             KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + 1)), evt -> {
-                nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(false);
+                nodeList.get(nodeList.size() - 1).getRootCircle().setHighlighter(false);
                 drawTree();
             });
             timeline.getKeyFrames().add(kf1);
-            timeline.play();
+            timeline.playFromStart();;
         }
     }
 
     public void search(Integer searchValue) {
+    	timeline.getKeyFrames().clear();
         nodeList.clear();
         nodeList.add(this.mainTree.root);
         nodeList = this.mainTree.searchNode(nodeList, searchValue);
         final int numTime = nodeList.size(); // so lan de chay xong search
         this.drawHighlightSequence(nodeList);
-        GraphicsContext gc = this.getGraphicsContext2D();
-        Timeline timeline = new Timeline();
         KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
-            if (nodeList.get(nodeList.size() - 1).rootCircle.getSearchKey() != searchValue) {
+            if (nodeList.get(nodeList.size() - 1).getRootCircle().getSearchKey() != searchValue) {
                 Alert er2 = new Alert(AlertType.INFORMATION, "Cannot find the node with inserted key", ButtonType.OK);
                 er2.setTitle("Error");
                 er2.setHeaderText("");
@@ -198,20 +195,18 @@ public class GraphicTree extends Canvas {
             }
         });
         timeline.getKeyFrames().add(kf);
-        timeline.play();
+        timeline.playFromStart();
     }
 
     public void delete(Integer deleteValue) {
+    	timeline.getKeyFrames().clear();
         nodeList.clear();
         nodeList.add(this.mainTree.root);
         nodeList = this.mainTree.searchNode(nodeList, deleteValue);
         this.drawHighlightSequence(nodeList);
         final int numTime = nodeList.size(); // so lan de chay xong search
         Node deleteNode = nodeList.get(nodeList.size() - 1);
-        Node parentNode = mainTree.getParentNode(mainTree.root, deleteValue);
 
-        GraphicsContext gc = this.getGraphicsContext2D();
-        Timeline timeline = new Timeline();
         KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
             try {
                 nodeList = this.mainTree.deleteNode(deleteValue);
@@ -224,26 +219,31 @@ public class GraphicTree extends Canvas {
             drawTree();
         });
         timeline.getKeyFrames().add(kf);
-        if (deleteNode.children.size() > 0 && deleteNode != mainTree.root) {
-            ArrayList<Node> childrenList = deleteNode.children;
-            KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + childrenList.size())), evt -> {
-                this.drawHighlightSequence(childrenList);
+        if (deleteNode.getChildren().size() > 0 && deleteNode != mainTree.root) {
+        	ArrayList<Node> childrenList = deleteNode.getChildren();
+            KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + 1)), evt -> {
+                for(Node temp : childrenList)
+                	temp.getRootCircle().setHighlighter(true);
+                drawTree();
+            });
+            KeyFrame kf2 = new KeyFrame(Duration.millis(500 * (numTime + 2)), evt -> {
+            	for(Node temp : childrenList)
+                	temp.getRootCircle().setHighlighter(false);
                 drawTree();
             });
             timeline.getKeyFrames().add(kf1);
+            timeline.getKeyFrames().add(kf2);
         }
-        timeline.play();
+        timeline.playFromStart();
     }
 
     public void update(Integer oldValue, Integer newValue) throws TreeException {
+    	timeline.getKeyFrames().clear();
         nodeList.clear();
         nodeList.add(this.mainTree.root);
         nodeList = this.mainTree.searchNode(nodeList, oldValue);
         final int numTime = nodeList.size(); // so lan de chay xong search
         this.drawHighlightSequence(nodeList);
-
-        GraphicsContext gc = this.getGraphicsContext2D();
-        Timeline timeline = new Timeline();
         KeyFrame kf = new KeyFrame(Duration.millis(500 * numTime), evt -> {
             try {
                 nodeList = this.mainTree.updateValueOfNode(oldValue, newValue);
@@ -253,16 +253,16 @@ public class GraphicTree extends Canvas {
                 er2.setHeaderText("");
                 er2.show();
             }
-            nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(true);
+            nodeList.get(nodeList.size() - 1).getRootCircle().setHighlighter(true);
             drawTree();
         });
         timeline.getKeyFrames().add(kf);
         KeyFrame kf1 = new KeyFrame(Duration.millis(500 * (numTime + 1)), evt -> {
-            nodeList.get(nodeList.size() - 1).rootCircle.setHighlighter(false);
+            nodeList.get(nodeList.size() - 1).getRootCircle().setHighlighter(false);
             drawTree();
         });
         timeline.getKeyFrames().add(kf1);
-        timeline.play();
+        timeline.playFromStart();
     }
 
     public boolean isEmpty() {
@@ -288,14 +288,18 @@ public class GraphicTree extends Canvas {
     }
 
     public void preorderList() {
+    	timeline.getKeyFrames().clear();
         nodeList.clear();
         nodeList = this.mainTree.traversePreOrder();
         this.drawHighlightSequence(nodeList);
+        timeline.playFromStart();
     }
 
     public void postorderList() {
+    	timeline.getKeyFrames().clear();
         nodeList.clear();
         nodeList = this.mainTree.traversePostOrder();
         this.drawHighlightSequence(nodeList);
+        timeline.playFromStart();
     }
 }
