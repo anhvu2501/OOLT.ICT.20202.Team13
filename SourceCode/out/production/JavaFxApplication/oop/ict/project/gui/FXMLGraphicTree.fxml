@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -19,9 +20,11 @@
    <bottom>
       <HBox alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
          <children>
+         	<Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#undoPressed" prefHeight="40.0" prefWidth="70.0" text="Undo" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#redoPressed" prefHeight="40.0" prefWidth="70.0" text="Redo" />
             <Button fx:id="resumeBtn" mnemonicParsing="false" onAction="#resumePressed" prefHeight="40.0" prefWidth="90.0" text="Resume" />
             <Button fx:id="pauseBtn" mnemonicParsing="false" onAction="#pausePressed" prefHeight="40.0" prefWidth="90.0" text="Pause" />
-            <TextField fx:id="inputNodeKey" prefHeight="40.0" prefWidth="120.0" promptText="Key">
+            <TextField fx:id="inputNodeKey" prefHeight="40.0" prefWidth="100.0" promptText="Key">
                <font>
                   <Font size="14.0" />
                </font></TextField>
@@ -30,13 +33,13 @@
             <Button mnemonicParsing="false" onAction="#deletePressed" prefHeight="40.0" prefWidth="90.0" text="Delete" />
             <Button mnemonicParsing="false" onAction="#updatePressed" prefHeight="40.0" prefWidth="90.0" text="Update" />
             <Button mnemonicParsing="false" onAction="#searchPressed" prefHeight="40.0" prefWidth="90.0" text="Search" />
-            <MenuButton mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" text="Traverse">
+            <MenuButton mnemonicParsing="false" prefHeight="40.0" prefWidth="90.0" text="Traverse">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#preorderPressed" text="Preorder" />
                 <MenuItem mnemonicParsing="false" onAction="#postorderPressed" text="Postorder" />
               </items>
             </MenuButton>
-            <Button layoutX="855.0" layoutY="15.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="40.0" prefWidth="90.0" text="Back" />
+            <Button layoutX="855.0" layoutY="15.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="40.0" prefWidth="70.0" text="Back" />
          </children>
       </HBox>
    </bottom>

@@ -148,5 +148,11 @@ public class BalancedTree extends GenericTree {
 		for (Node child : root.getChildren())
 			updateMaxMin(child);
 	}
-
+	
+	public BalancedTree cloneTree() {
+		Node newRootNode = root.cloneNode(root);
+		BalancedTree newTree = new BalancedTree(newRootNode);
+		return newTree;
+	}
+	
 }

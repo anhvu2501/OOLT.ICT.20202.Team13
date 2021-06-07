@@ -209,4 +209,9 @@ public class GenericTree {
 		}
 	}
 
+	public GenericTree cloneTree() {
+		Node newRootNode = root.cloneNode(root);
+		GenericTree newTree = new GenericTree(newRootNode);
+		return newTree;
+	}
 }
