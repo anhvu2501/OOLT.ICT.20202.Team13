@@ -80,6 +80,7 @@ public class GenericTree {
 				foundDeleteNodeList.remove(foundNode);
 				if (foundNode.getChildren().size() == 0) {
 					parentNode.getChildren().remove(foundNode);
+					this.updateDepth(this.root);
 					return foundDeleteNodeList;
 				} else {
 					Integer indexOfDeteleNode = parentNode.getChildren().indexOf(foundNode);
@@ -89,6 +90,7 @@ public class GenericTree {
 					}
 					parentNode.getChildren().remove(foundNode);
 					foundNode = null;
+					this.updateDepth(this.root);
 					return foundDeleteNodeList;
 				}
 			}
@@ -99,20 +101,19 @@ public class GenericTree {
 
 	public ArrayList<Node> updateValueOfNode(Integer currentValue, Integer newValue) throws TreeException {
 		boolean isNewValueInTree = isInTree(root, newValue);
-		if(!isNewValueInTree) {
+		if (!isNewValueInTree) {
 			boolean isUpdateInTree = isInTree(root, currentValue);
 			if (isUpdateInTree) {
 				ArrayList<Node> foundUpdateNodeList = new ArrayList<>();
 				foundUpdateNodeList.add(root);
 				foundUpdateNodeList = searchNode(foundUpdateNodeList, currentValue);
 				foundUpdateNodeList.get(foundUpdateNodeList.size() - 1).getRootCircle().setSearchKey(newValue);
-	
+
 				return foundUpdateNodeList;
 			} else {
 				throw new TreeException("Cannot find node with value " + currentValue);
 			}
-		}
-		else {
+		} else {
 			throw new TreeException("New value " + newValue + " already exists in the tree.");
 		}
 	}
@@ -197,13 +198,13 @@ public class GenericTree {
 
 		return listNodes;
 	}
-	
+
 	public void updateDepth(Node root) {
-		if(root==this.root) {
+		if (root == this.root) {
 			this.root.setDepth(1);
 		}
 		for (Node child : root.getChildren()) {
-			child.setDepth(root.getDepth()+1);
+			child.setDepth(root.getDepth() + 1);
 			updateDepth(child);
 		}
 	}

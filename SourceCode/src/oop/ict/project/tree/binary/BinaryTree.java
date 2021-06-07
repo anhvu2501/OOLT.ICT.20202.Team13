@@ -64,24 +64,6 @@ public class BinaryTree extends GenericTree {
 		}
 	}
 
-//    public ArrayList<Node> deleteNodeBinary(Integer value) throws TreeException {
-//        boolean isInTree = isInTree(root, value);
-//        if (isInTree) {
-//            if (value == root.rootCircle.getSearchKey())
-//                throw new TreeException("Cannot delete root node. You can clear the old tree to create a new one");
-//            else {
-//                ArrayList<Node> foundDeleteNodeList = new ArrayList<>();
-//                foundDeleteNodeList.add(root);
-//                foundDeleteNodeList = searchNode(foundDeleteNodeList, value);
-//                Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
-//                foundDeleteNodeList.remove(foundNode);
-//                foundDeleteNodeList.add(getDeepestNode());
-//                return foundDeleteNodeList;
-//            }
-//        } else
-//            throw new TreeException("Cannot find node with value " + value);
-//    }
-
 	public ArrayList<Node> deleteNode(Integer value) throws TreeException {
 		boolean isInTree = isInTree(root, value);
 		if (isInTree) {
@@ -104,6 +86,7 @@ public class BinaryTree extends GenericTree {
 					}
 				} 
 				parentNode.getChildren().remove(foundNode);
+				this.updateDepth(this.root);
 				return foundDeleteNodeList;
 			}
 		} else {
