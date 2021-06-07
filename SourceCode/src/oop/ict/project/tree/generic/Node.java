@@ -5,14 +5,13 @@ import oop.ict.project.shape.Circle;
 
 import java.util.ArrayList;
 
-
 public class Node {
 	private int depth;
-    private Circle rootCircle;
-    private ArrayList<Node> children = new ArrayList<>();
-    private boolean highlightFlag;
+	private Circle rootCircle;
+	private ArrayList<Node> children = new ArrayList<>();
+	private boolean highlightFlag;
 
-    public Circle getRootCircle() {
+	public Circle getRootCircle() {
 		return rootCircle;
 	}
 
@@ -25,30 +24,42 @@ public class Node {
 	}
 
 	public Node(Integer key) {
-        this.rootCircle = new Circle(key);
-    }
+		this.rootCircle = new Circle(key);
+	}
 
-    public Node(Circle rootCircle) {
-        this.rootCircle = rootCircle;
-    }
+	public Node(Circle rootCircle) {
+		this.rootCircle = rootCircle;
+	}
 
-    public void setValue(Integer value) {
-        this.rootCircle.setSearchKey(value);
-    }
+	public void setValue(Integer value) {
+		this.rootCircle.setSearchKey(value);
+	}
 
-    public void addChild(Node child) {
-        this.children.add(child);
-    }
-    
-    public int getDepth() {
+	public void addChild(Node child) {
+		this.children.add(child);
+	}
+
+	public int getDepth() {
 		return depth;
 	}
 
 	public void setDepth(int depth) {
 		this.depth = depth;
 	}
-	
+
 	public int getNbChildren() {
 		return this.children.size();
 	}
+
+	public Node cloneNode(Node node) {
+		if (node == null)
+			return null;
+		Node newNode = new Node(node.getRootCircle().getSearchKey());
+
+		for (Node childNode : node.children) {
+			newNode.children.add(cloneNode(childNode));
+		}
+		return newNode;
+	}
+
 }

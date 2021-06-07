@@ -94,4 +94,10 @@ public class BinaryTree extends GenericTree {
 		}
 	}
 	
+	public BinaryTree cloneTree() {
+		Node newRootNode = root.cloneNode(root);
+		BinaryTree newTree = new BinaryTree(newRootNode);
+		return newTree;
+	}
+	
 }
