@@ -24,12 +24,6 @@ public class ScreenController {
 
     @FXML
     private BorderPane screenContainer;
-    
-    @FXML
-    private Button pauseBtn;
-
-    @FXML
-    private Button resumeBtn;
 
     public static Label staticLabel;
 
@@ -374,12 +368,12 @@ public class ScreenController {
     }
     
     @FXML
-    void resumePressed(ActionEvent event) {
+    public void resumePressed(ActionEvent event) {
     	graphicTree.timeline.play();
     }
 
     @FXML
-    void pausePressed(ActionEvent event) {
+    public void pausePressed(ActionEvent event) {
     	graphicTree.timeline.pause();
     }
 }

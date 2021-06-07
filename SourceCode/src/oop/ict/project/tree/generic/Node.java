@@ -4,7 +4,7 @@ package oop.ict.project.tree.generic;
 import oop.ict.project.shape.Circle;
 
 import java.util.ArrayList;
-//import javafx.scene.shape.Circle;
+
 
 public class Node {
 	private int depth;
