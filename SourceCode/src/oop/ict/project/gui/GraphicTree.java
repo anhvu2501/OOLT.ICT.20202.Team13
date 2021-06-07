@@ -148,7 +148,7 @@ public class GraphicTree extends Canvas {
         nodeList = this.mainTree.searchNode(nodeList, parentValue);
         this.drawHighlightSequence(nodeList);
         final int numTime = nodeList.size(); // so lan de chay xong search
-        System.out.println(nodeList.get(nodeList.size() - 1).getDepth());
+        
         if (nodeList.get(nodeList.size() - 1).getDepth() == 8) {
             Alert er2 = new Alert(AlertType.INFORMATION, "The maximum tree's depth of this program is "
                     + numberLayer.toString() + "! You cannot insert more", ButtonType.OK);

@@ -24,6 +24,13 @@ public class ScreenController {
 
     @FXML
     private BorderPane screenContainer;
+    
+    @FXML
+    private Button pauseBtn;
+
+    @FXML
+    private Button resumeBtn;
+
 
     public static Label staticLabel;
 
@@ -41,6 +48,8 @@ public class ScreenController {
             e.printStackTrace();
         }
         screenContainer.setCenter(graphicTree);
+        pauseBtn.setVisible(false);
+        resumeBtn.setVisible(false);
 
         graphicTree.widthProperty().bind(screenContainer.widthProperty());
         graphicTree.heightProperty().bind(screenContainer.heightProperty());
@@ -168,6 +177,7 @@ public class ScreenController {
                     public void handle(ActionEvent evt) {
                         try {
                             Integer temp = Integer.parseInt(td.getEditor().getText().trim());
+                            pauseBtn.setVisible(true);
                             graphicTree.insert(temp, num);
                         } catch (TreeException e) {
                             Alert er2 = new Alert(AlertType.INFORMATION, e.getMessage(), ButtonType.OK);
@@ -191,6 +201,14 @@ public class ScreenController {
                 er1.show();
             }
         }
+        graphicTree.timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent evt) {
+				pauseBtn.setVisible(false);
+			}
+        	
+        });
     }
 
     public void restoreDraw() {
@@ -370,10 +388,12 @@ public class ScreenController {
     @FXML
     public void resumePressed(ActionEvent event) {
     	graphicTree.timeline.play();
+    	resumeBtn.setVisible(false);
     }
 
     @FXML
     public void pausePressed(ActionEvent event) {
     	graphicTree.timeline.pause();
+    	resumeBtn.setVisible(true);
     }
 }
