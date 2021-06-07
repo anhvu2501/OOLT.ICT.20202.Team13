@@ -80,6 +80,55 @@ public class BalancedBinaryTree extends BinaryTree {
                     + " already exists in the tree");
     }
 
+    @Override
+    public ArrayList<Node> deleteNode(Integer value) throws TreeException {
+        boolean isInTree = isInTree(root, value);
+        if (isInTree) {
+            if (value == root.getRootCircle().getSearchKey()) {
+                throw new TreeException("You cannot delete the root. You can create a new tree to clear the old tree.");
+            } else {
+                ArrayList<Node> foundDeleteNodeList = new ArrayList<>();
+                foundDeleteNodeList.add(root);
+                foundDeleteNodeList = searchNode(foundDeleteNodeList, value);
+                Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
+                foundDeleteNodeList.remove(foundNode);
+                Node parentNode = getParentNode(root, value);
+                Integer indexOfDeleteNode = parentNode.getChildren().indexOf(foundNode);
+                if (foundNode.getNbChildren()==0) {
+                    parentNode.getChildren().remove(foundNode);
+                    this.updateMaxMin(this.root);
+                    if(this.maxLeafDepth-this.minLeafDepth>this.limitDistance) {
+                        parentNode.getChildren().add(indexOfDeleteNode, foundNode);
+                        this.updateMaxMin(this.root);
+                        throw new TreeException("Cannot delete this node because it make the tree unbalanced");
+                    }
+                    return foundDeleteNodeList;
+                } else {
+                    parentNode.getChildren().remove(foundNode);
+                    for (int i = 0; i < foundNode.getChildren().size(); i++) {
+                        parentNode.getChildren().add(indexOfDeleteNode + i, foundNode.getChildren().get(i));
+                        foundDeleteNodeList.add(foundNode.getChildren().get(i));
+                    }
+                    this.updateDepth(this.root);
+                    this.updateMaxMin(this.root);
+                    if(this.maxLeafDepth-this.minLeafDepth>this.limitDistance) {
+                        for (int i = 0; i < foundNode.getChildren().size(); i++) {
+                            parentNode.getChildren().remove(foundNode.getChildren().get(i));
+                            foundDeleteNodeList.remove(foundNode.getChildren().get(i));
+                        }
+                        parentNode.getChildren().add(indexOfDeleteNode, foundNode);
+                        this.updateDepth(this.root);
+                        this.updateMaxMin(this.root);
+                        throw new TreeException("Cannot delete this node because it make the tree unbalanced");
+                    }
+                    return foundDeleteNodeList;
+                }
+            }
+        } else {
+            throw new TreeException("Cannot find node with value " + value);
+        }
+    }
+
     public void updateMaxMin(Node root) {
         if (root == this.root) {
             if (root.getNbChildren() == 0) {
