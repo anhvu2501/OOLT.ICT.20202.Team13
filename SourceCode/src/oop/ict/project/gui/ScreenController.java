@@ -264,6 +264,7 @@ public class ScreenController {
             } else {
                 try {
                     Integer num = Integer.parseInt(this.inputNodeKey.getText().trim());
+                    pauseBtn.setVisible(true);
                     graphicTree.delete(num);
                     textArea.setText("Delete node " + num);
                 } catch (NumberFormatException e1) {
@@ -276,6 +277,14 @@ public class ScreenController {
                 }
             }
         }
+        graphicTree.timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent evt) {
+                pauseBtn.setVisible(false);
+            }
+
+        });
     }
 
     @FXML
@@ -305,6 +314,7 @@ public class ScreenController {
                 EventHandler<ActionEvent> event1 = evt -> {
                     try {
                         Integer temp = Integer.parseInt(td.getEditor().getText().trim());
+                        pauseBtn.setVisible(true);
                         graphicTree.update(num, temp);
                         textArea.setText("Update node " + num + " become " + temp);
                     } catch (TreeException e) {
@@ -332,6 +342,14 @@ public class ScreenController {
                 Platform.runLater(() -> textArea.selectRange(0, 6));
             }
         }
+        graphicTree.timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent evt) {
+                pauseBtn.setVisible(false);
+            }
+
+        });
     }
 
     @FXML
@@ -359,6 +377,7 @@ public class ScreenController {
             } else {
                 try {
                     Integer num = Integer.parseInt(this.inputNodeKey.getText().trim());
+                    pauseBtn.setVisible(true);
                     graphicTree.search(num);
                     textArea.setText("Search for node " + num);
                 } catch (NumberFormatException e1) {
@@ -371,6 +390,14 @@ public class ScreenController {
                 }
             }
         }
+        graphicTree.timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent evt) {
+                pauseBtn.setVisible(false);
+            }
+
+        });
     }
 
     @FXML
@@ -381,6 +408,7 @@ public class ScreenController {
         graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
         try {
+        	pauseBtn.setVisible(true);
             graphicTree.preorderList();
             textArea.setText("Traverse preorder");
         } catch (Exception e) {
@@ -392,6 +420,14 @@ public class ScreenController {
             alert.showAndWait();
             Platform.runLater(() -> textArea.selectRange(0, 6));
         }
+        graphicTree.timeline.setOnFinished(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent evt) {
+                pauseBtn.setVisible(false);
+            }
+
+        });
     }
 
     @FXML
@@ -402,6 +438,7 @@ public class ScreenController {
         graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
         try {
+        	pauseBtn.setVisible(true);
             graphicTree.postorderList();
             textArea.setText("Traverse postorder");
         } catch (Exception e) {
@@ -413,7 +450,14 @@ public class ScreenController {
             alert.showAndWait();
             Platform.runLater(() -> textArea.selectRange(0, 6));
         }
+        graphicTree.timeline.setOnFinished(new EventHandler<ActionEvent>() {
 
+            @Override
+            public void handle(ActionEvent evt) {
+                pauseBtn.setVisible(false);
+            }
+
+        });
     }
 
     @FXML
