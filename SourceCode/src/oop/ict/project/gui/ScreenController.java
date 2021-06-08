@@ -408,7 +408,7 @@ public class ScreenController {
         graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
         try {
-        	pauseBtn.setVisible(true);
+            pauseBtn.setVisible(true);
             graphicTree.preorderList();
             textArea.setText("Traverse preorder");
         } catch (Exception e) {
@@ -438,7 +438,7 @@ public class ScreenController {
         graphicTree.heightProperty().bind(screenContainer.heightProperty());
 
         try {
-        	pauseBtn.setVisible(true);
+            pauseBtn.setVisible(true);
             graphicTree.postorderList();
             textArea.setText("Traverse postorder");
         } catch (Exception e) {
