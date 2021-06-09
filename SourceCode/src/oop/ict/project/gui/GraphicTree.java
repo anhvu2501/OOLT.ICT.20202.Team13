@@ -27,8 +27,8 @@ public class GraphicTree extends Canvas {
     private BalancedTree balancedTree; // type3
     private BalancedBinaryTree balancedBinaryTree; // type4
     private GenericTree mainTree;
-    protected Stack<GenericTree> stackGenTree1 = new Stack<>();
-    protected Stack<GenericTree> stackGenTree2 = new Stack<>();
+    private Stack<GenericTree> stackGenTree1 = new Stack<>();
+    private Stack<GenericTree> stackGenTree2 = new Stack<>();
     private Stack<BinaryTree> stackBinTree1 = new Stack<>();
     private Stack<BinaryTree> stackBinTree2 = new Stack<>();
     private Stack<BalancedTree> stackBalTree1 = new Stack<>();

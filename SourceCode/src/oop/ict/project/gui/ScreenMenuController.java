@@ -21,9 +21,6 @@ public class ScreenMenuController {
     @FXML
     private Button exitButton;
 
-    private Stage stage;
-    private Scene scene;
-
     private GraphicTree graphicTree;
 
     public void initialize() {
