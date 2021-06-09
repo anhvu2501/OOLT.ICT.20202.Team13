@@ -39,9 +39,6 @@ public class ScreenController {
 
     private GraphicTree graphicTree;
 
-    private Stage stage;
-    private Scene scene;
-
     public void initialize() {
         staticLabel = currentTreeName;
         try {
