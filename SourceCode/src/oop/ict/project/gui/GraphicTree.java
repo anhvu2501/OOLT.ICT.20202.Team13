@@ -349,18 +349,22 @@ public class GraphicTree extends Canvas {
         if (mainTree instanceof BalancedBinaryTree) {
             BalancedBinaryTree tempTree = stackBalBinTree1.pop();
             stackBalBinTree2.push(tempTree);
+            this.balancedBinaryTree = stackBalBinTree1.peek();
             this.mainTree = stackBalBinTree1.peek();
         } else if (mainTree instanceof BalancedTree) {
             BalancedTree tempTree = stackBalTree1.pop();
             stackBalTree2.push(tempTree);
+            this.balancedTree = stackBalTree1.peek();
             this.mainTree = stackBalTree1.peek();
         } else if (mainTree instanceof BinaryTree) {
             BinaryTree tempTree = stackBinTree1.pop();
             stackBinTree2.push(tempTree);
+            this.binaryTree = stackBinTree1.peek();
             this.mainTree = stackBinTree1.peek();
         } else {
             GenericTree tempTree = stackGenTree1.pop();
             stackGenTree2.push(tempTree);
+            this.genericTree = stackGenTree1.peek();
             this.mainTree = stackGenTree1.peek();
         }
         drawTree();
@@ -372,18 +376,22 @@ public class GraphicTree extends Canvas {
         if (mainTree instanceof BalancedBinaryTree) {
             BalancedBinaryTree tempTree = stackBalBinTree2.pop();
             stackBalBinTree1.push(tempTree);
+            this.balancedBinaryTree = stackBalBinTree1.peek();
             this.mainTree = stackBalBinTree1.peek();
         } else if (mainTree instanceof BalancedTree) {
             BalancedTree tempTree = stackBalTree2.pop();
             stackBalTree1.push(tempTree);
+            this.balancedTree = stackBalTree1.peek();
             this.mainTree = stackBalTree1.peek();
         } else if (mainTree instanceof BinaryTree) {
             BinaryTree tempTree = stackBinTree2.pop();
             stackBinTree1.push(tempTree);
+            this.binaryTree = stackBinTree1.peek();
             this.mainTree = stackBinTree1.peek();
         } else {
             GenericTree tempTree = stackGenTree2.pop();
             stackGenTree1.push(tempTree);
+            this.genericTree = stackGenTree1.peek();
             this.mainTree = stackGenTree1.peek();
         }
         drawTree();
