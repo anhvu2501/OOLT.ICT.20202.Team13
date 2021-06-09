@@ -17,6 +17,9 @@ Hồ Trần Anh Vũ - 20194885
  
  Operations on the above tree structures: create, insert, delete, update, traverse.
 
-2. Link of demo video for the application
+2. Link of demo and presentation video for the application
 
-https://l.facebook.com/l.php?u=https%3A%2F%2Fdrive.google.com%2Ffile%2Fd%2F1d_fQPNou94MwN0zuiVasFHCDYob4e7XL%2Fview%3Fusp%3Dsharing%26fbclid%3DIwAR3prVgsYx3o28Es0HInycpqEglkL7dhOWh26D1qyx11_qf6nTZVNsHz6pg&h=AT1b_UebRZEHZSMiZpqFpFSytgtGLlyIWW2a9KypzzufOfWIgpax-yCZXNUhke3pDzSg2Ki1mPaG4-r-JCuWGeBrCuIxqQXDvy36OwclTvaJzZEqGoEIu7HqMHurrMg8pT6HzA
+Link demo: https://drive.google.com/file/d/1JwfXJTkFJlsWE1LxjoE-PRBMKbnlyJwG/view?usp=sharing
+
+Link presentation: https://drive.google.com/file/d/17F9G8yuS4E6pgjpyn_7n5OFYJLcClbzI/view?fbclid=IwAR0k7VHkrDd-vTr_B6MCcUb0bTrOM1Js29STAKU0RFdrLfj-fK4mA-cL3fI![image](https://user-images.githubusercontent.com/58564788/121380669-46203200-c96f-11eb-9ba8-0f63763f0b7f.png)
+
