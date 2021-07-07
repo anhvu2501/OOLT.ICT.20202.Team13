@@ -36,14 +36,11 @@ public class BinaryTree extends GenericTree {
 				searchParentNodeList.add(root);
 				ArrayList<Node> searchNodeList = searchNode(searchParentNodeList, parentValue);
 				Node insertNode = searchNodeList.get(searchNodeList.size() - 1);
+				
 				if (insertNode.getChildren().size() < this.MAX_NB_CHILDREN) {
-					newNode.setDepth(insertNode.getDepth() + 1);
-					super.insertNode(parentValue, newNode);
+					return super.insertNode(parentValue, newNode);
 				} else
 					throw new TreeException("Only can input max 2 nodes!!");
-				searchNodeList.add(newNode);
-				this.updateDepth(this.root);
-				return searchNodeList;
 			} else
 				throw new TreeException("Cannot find node with value " + parentValue);
 		} else
@@ -75,17 +72,21 @@ public class BinaryTree extends GenericTree {
 				foundDeleteNodeList.add(root);
 				foundDeleteNodeList = searchNode(foundDeleteNodeList, value);
 				Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
-				Node parentNode = getParentNode(root, value);
 	
 				if(foundNode.getChildren().size() == 2) {  
 					// replace the deleted node with its first child
 					// the second child is now the child of the first child
+					Node parentNode = getParentNode(root, value);
 					foundDeleteNodeList.remove(foundNode);
 					Integer indexOfDeteleNode = parentNode.getChildren().indexOf(foundNode);
 					Node firstChildOfDeleteNode = foundNode.getChildren().get(0);
+					Node secondChildOfDeleteNode = foundNode.getChildren().get(1);
+					firstChildOfDeleteNode.setDepth(foundNode.getDepth());
+					
 					parentNode.getChildren().add(indexOfDeteleNode, firstChildOfDeleteNode);
+					firstChildOfDeleteNode.getChildren().add(secondChildOfDeleteNode);
 					foundDeleteNodeList.add(firstChildOfDeleteNode);
-					firstChildOfDeleteNode.getChildren().add(foundNode.getChildren().get(1));
+					foundDeleteNodeList.add(secondChildOfDeleteNode);
 					parentNode.getChildren().remove(foundNode);
 					this.updateDepth(this.root);
 				} 
