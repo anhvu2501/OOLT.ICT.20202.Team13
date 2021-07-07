@@ -50,18 +50,9 @@ public class BalancedTree extends GenericTree {
 		return maxLeafDepth;
 	}
 
-	@Override
+	
 	public ArrayList<Node> insertNode(Integer parentValue, Node newNode) throws TreeException {
-		boolean isNodeInTree = isInTree(root, newNode.getRootCircle().getSearchKey());
-		if (!isNodeInTree) {
-			boolean isParentInTree = isInTree(root, parentValue);
-			if (isParentInTree) {
-				ArrayList<Node> searchParentNodeList = new ArrayList<>();
-				searchParentNodeList.add(root);
-				ArrayList<Node> searchNodeList = searchNode(searchParentNodeList, parentValue);
-				newNode.setDepth(searchNodeList.get(searchNodeList.size() - 1).getDepth() + 1);
-				searchNodeList.get(searchNodeList.size() - 1).addChild(newNode);
-				searchNodeList.add(newNode);
+				ArrayList<Node> searchNodeList = super.insertNode(parentValue, newNode);
 				this.updateMaxMin(this.root);
 				if (this.maxLeafDepth - this.minLeafDepth > this.limitDistance) {
 					searchNodeList.get(searchNodeList.size()-2).getChildren().remove(newNode);
@@ -70,16 +61,9 @@ public class BalancedTree extends GenericTree {
 				} else {
 					return searchNodeList;
 				}
-			} else {
-				throw new TreeException("Cannot find node with value " + parentValue);
-			}
-		} else {
-			throw new TreeException(
-					"Node with value " + newNode.getRootCircle().getSearchKey() + "already exists in the tree.");
-		}
 	}
 
-	@Override
+	
 	public ArrayList<Node> deleteNode(Integer value) throws TreeException {
 		boolean isInTree = isInTree(root, value);
 		if (isInTree) {
