@@ -35,9 +35,10 @@ public class BinaryTree extends GenericTree {
 				ArrayList<Node> searchParentNodeList = new ArrayList<>();
 				searchParentNodeList.add(root);
 				ArrayList<Node> searchNodeList = searchNode(searchParentNodeList, parentValue);
-				if (searchNodeList.get(searchNodeList.size() - 1).getChildren().size() < this.MAX_NB_CHILDREN) {
-					newNode.setDepth(searchNodeList.get(searchNodeList.size() - 1).getDepth() + 1);
-					searchNodeList.get(searchNodeList.size() - 1).addChild(newNode);
+				Node insertNode = searchNodeList.get(searchNodeList.size() - 1);
+				if (insertNode.getChildren().size() < this.MAX_NB_CHILDREN) {
+					newNode.setDepth(insertNode.getDepth() + 1);
+					super.insertNode(parentValue, newNode);
 				} else
 					throw new TreeException("Only can input max 2 nodes!!");
 				searchNodeList.add(newNode);
@@ -75,18 +76,22 @@ public class BinaryTree extends GenericTree {
 				foundDeleteNodeList = searchNode(foundDeleteNodeList, value);
 				Node foundNode = foundDeleteNodeList.get(foundDeleteNodeList.size() - 1);
 				Node parentNode = getParentNode(root, value);
-				foundDeleteNodeList.remove(foundNode);
-				if(foundNode.getChildren().size() != 0) {
+	
+				if(foundNode.getChildren().size() == 2) {  
+					// replace the deleted node with its first child
+					// the second child is now the child of the first child
+					foundDeleteNodeList.remove(foundNode);
 					Integer indexOfDeteleNode = parentNode.getChildren().indexOf(foundNode);
 					Node firstChildOfDeleteNode = foundNode.getChildren().get(0);
 					parentNode.getChildren().add(indexOfDeteleNode, firstChildOfDeleteNode);
 					foundDeleteNodeList.add(firstChildOfDeleteNode);
-					if(foundNode.getChildren().size() == 2) {
-						firstChildOfDeleteNode.getChildren().add(foundNode.getChildren().get(1));
-					}
+					firstChildOfDeleteNode.getChildren().add(foundNode.getChildren().get(1));
+					parentNode.getChildren().remove(foundNode);
+					this.updateDepth(this.root);
 				} 
-				parentNode.getChildren().remove(foundNode);
-				this.updateDepth(this.root);
+				else {
+					foundDeleteNodeList = super.deleteNode(value);
+				}
 				return foundDeleteNodeList;
 			}
 		} else {
